@@ -6,38 +6,30 @@ import {
   addNavigationHelpers
 } from 'react-navigation';
 
+import NavigationView from './NavigationViews/DrawerNavigationView';
+
 import { connect } from 'react-redux';
 
 import Home from './Home';
 import Page from './Page';
 
-const Router = StackRouter({
+const routes = {
   Home: {
     screen: Home,
     path: 'home'
   },
   Page: {
     screen: Page,
-    path: 'page/:index'
+    path: 'page'
   }
-});
-
-const NavView = ({ navigation, router }) => {
-  const Component = router.getComponentForState(navigation.state);
-  return (
-    <Component
-      navigation={addNavigationHelpers({
-        ...navigation,
-        state: navigation.state.routes[navigation.state.index]
-      })}
-    />
-  );
 };
+const Router = StackRouter(routes);
 
-export const Navigator = createNavigator(Router)(NavView);
+export const Navigator = createNavigator(Router)(NavigationView);
 
 const App = (props) => (
   <Navigator
+    routes={routes}
     navigation={addNavigationHelpers({
       dispatch: props.dispatch,
       state: props.navigation

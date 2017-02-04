@@ -13,7 +13,7 @@ import Navigation from './navigation';
 const store = createStore(reducers);
 
 const renderApp = () => <Provider store={store}>
-  <Navigation />
+  <Navigation style={}/>
 </Provider>;
 
 AppRegistry.registerComponent('ReactNavigationWeb', () => renderApp);

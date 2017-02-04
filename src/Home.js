@@ -14,10 +14,7 @@ const Home = ({ navigation }) => (
       This is Home Page
     </Text>
 
-    <Button title="Page 1" style={styles.button} onPress={() => navigation.navigate('Page', { index: 1 })} />
-
-    <Button title="Page 2" style={styles.button} onPress={() => navigation.navigate('Page', { index: 2 })} />
-
+    <Button title="Page" style={styles.button} onPress={() => navigation.navigate('Page')} />
   </View>
 );
 

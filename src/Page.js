@@ -11,7 +11,7 @@ const Page = ({ navigation }) => (
   <View style={styles.container} >
 
     <Text style={styles.text}>
-      Page {navigation.state.params.index}
+      Page {((navigation.state || {}).params || {}).index}
     </Text>
 
     <Button title="Back" style={styles.button} onPress={() => navigation.goBack()} />
