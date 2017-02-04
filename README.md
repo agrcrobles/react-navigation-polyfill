@@ -1,4 +1,4 @@
-# React Navigation Web - Experiments with react-navigation in web + redux + hot reload!
+# Experiments with react-navigation in web + redux + hot reload!
 
 
 
