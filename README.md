@@ -1,4 +1,4 @@
-# Experiments with react-navigation in web + redux + hot reload!
+# react-navigation in web + redux + hot reload!
 
 
 
@@ -13,4 +13,5 @@ yarn start
 
 ## Demo
 
-  - https://youtu.be/8G4yG6sFLCM
+![alt tag](https://raw.githubusercontent.com/agrcrobles/react-navigation-web/master/assets/README.gif)
+
