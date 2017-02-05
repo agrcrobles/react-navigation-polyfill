@@ -21,16 +21,14 @@ const Scene = (props) => {
 
 const Header = (props) => {
   if (props.index === props.selected) {
-    return <div style={styles.itemSelected}>{props.route}</div>
+    return <div style={props.styles.itemSelected}>{props.route}</div>
   }
-  return <div onClick={() => {props.navigation.navigate(props.route)}} style={styles.item}>{props.route}</div>
+  return <div onClick={() => {props.navigation.navigate(props.route)}} style={props.styles.item}>{props.route}</div>
 }
 
 class TabNavigator extends React.Component {
   constructor(props) {
     super(props);
-    console.log(Object.keys(props.routes));
-
     this.state = {
       index: 0
     };
@@ -43,8 +41,8 @@ class TabNavigator extends React.Component {
   render() {
     return (
       <div>
-        <div style={styles.header}>
-          {Object.keys(this.props.routes).map((route, index) => <Header selected={this.state.index} index={index} key={index} navigation={this.props.navigation} route={route} />)}
+        <div style={this.props.styles.header}>
+          {Object.keys(this.props.routes).map((route, index) => <Header styles={this.props.styles} selected={this.state.index} index={index} key={index} navigation={this.props.navigation} route={route} />)}
         </div>
         <SwipeableViews index={this.state.index}>
           {this.props.navigation.state.routes.map(
@@ -60,25 +58,5 @@ class TabNavigator extends React.Component {
     );
   }
 }
-const styles = {
-  header: {
-    backgroundColor: "#999",
-    display: "flex",
-    color: "#fbfbfb",
-  },
-  item: {
-    padding: 10,
-    cursor: "pointer",
-    flex: 1,
-    textAlign: "center"
-  },
-  itemSelected: {
-    padding: 10,
-    cursor: "pointer",
-    flex: 1,
-    textAlign: "center",
-    borderBottom: "solid 4px #444"
-  }
 
-}
 export default TabNavigator;

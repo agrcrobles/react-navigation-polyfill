@@ -17,7 +17,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
-    path.join(__dirname, 'src', 'index.js')
+    path.join(__dirname, 'index.js')
   ],
   module: {
     loaders: [
@@ -39,6 +39,9 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
+    root: [
+      path.resolve(__dirname, '../node_modules')
+    ],
     alias: {
       'react-native': 'react-native-web'
     }

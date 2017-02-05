@@ -31,7 +31,7 @@ class DrawerNavigator extends React.Component {
     const Component = router.getComponentForState(navigation.state);
 
     return (
-      <View style={styles.container} onClick={() => this.toggleSidebarOpen()}>
+      <View style={this.props.inlineStyles.main} onClick={() => this.toggleSidebarOpen()}>
         <Sidebar
           navigation={addNavigationHelpers({
             ...navigation,
@@ -39,6 +39,8 @@ class DrawerNavigator extends React.Component {
           })}
           routes={this.props.routes}
           sidebarOpen={this.state.sidebarOpen}
+          inlineStyles={this.props.inlineStyles}
+          styles={this.props.styles}
         >
           <Component
             navigation={addNavigationHelpers({
@@ -51,14 +53,6 @@ class DrawerNavigator extends React.Component {
     );
   }
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
-
 
 export default DrawerNavigator;
 

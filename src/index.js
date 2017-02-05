@@ -1,29 +1,31 @@
 import React from 'react';
 
-import { AppRegistry } from 'react-native';
+import {
+  StackRouter,
+  TabRouter,
+  createNavigator
+} from 'react-navigation';
 
-import { Provider } from 'react-redux';
+import { StyleSheet } from 'react-native'
 
-import { createStore } from 'redux';
+import Drawer from './DrawerNavigator';
+import Tab from './TabNavigator';
+import Stack from './StackNavigator';
 
-import reducers from './reducers';
+export const StackNavigator = (RouteConfigs, StackNavigatorConfig) => {
+  const Routes = StackRouter(RouteConfigs);
+  return createNavigator(Routes, StackNavigatorConfig)(Stack);
+};
 
-import Navigation from './navigation';
+export const DrawerNavigator = (RouteConfigs, StackNavigatorConfig = {}) => {
 
-const store = createStore(reducers);
+  const Routes = StackRouter(RouteConfigs);
+  
+  return createNavigator(Routes)(((props) => <Drawer {...props} styles={StackNavigatorConfig.styles} inlineStyles={StackNavigatorConfig.inlineStyles} />));
+};
 
-const renderApp = () => <Provider store={store}>
-  <Navigation />
-</Provider>;
+export const TabNavigator = (RouteConfigs, StackNavigatorConfig = {}) => {
+  const Routes = TabRouter(RouteConfigs);
 
-AppRegistry.registerComponent('ReactNavigationWeb', () => renderApp);
-
-if (module.hot) {
-  module.hot.accept();
-  const nextReducer = require('./reducers').default;
-  store.replaceReducer(nextReducer);
-}
-
-AppRegistry.runApplication('ReactNavigationWeb', {
-  rootTag: document.getElementById('root')
-});
+  return createNavigator(Routes)((props) => <Tab {...props} styles={StackNavigatorConfig.styles} />);
+};

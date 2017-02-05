@@ -9,10 +9,9 @@ import {
   Text
 } from 'react-native';
 
-import { DrawerNavigator } from './NavigationViews';
-
 import { connect } from 'react-redux';
 
+// home page
 const Home = ({ navigation }) => (
   <View style={styles.container} >
 
@@ -20,21 +19,22 @@ const Home = ({ navigation }) => (
       This is Home Page
     </Text>
 
-    <Button title="Page" style={styles.button} onPress={() => navigation.navigate('Page')} />
+    <Button title='Page' style={styles.button} onPress={() => navigation.navigate('Page')} />
   </View>
 );
+// any other page
 const Page = ({ navigation }) => (
   <View style={styles.container} >
 
     <Text style={styles.text}>
-      Page {((navigation.state || {}).params || {}).index}
+      Page
     </Text>
 
-    <Button title="Back" style={styles.button} onPress={() => navigation.goBack()} />
+    <Button title='Back' style={styles.button} onPress={() => navigation.goBack()} />
 
   </View>
 );
-
+// some styles
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// routes
 const routes = {
   Home: {
     screen: Home,
@@ -59,8 +60,12 @@ const routes = {
   }
 };
 
-export const Navigator = DrawerNavigator(routes);
+//Drawer Navigator
+import { Tab, Stack, Drawer } from './views';
 
+export const Navigator = Stack(routes);
+
+// Your main App
 const App = (props) => (
   <Navigator
     routes={routes}
@@ -77,4 +82,5 @@ function mapStateToProps(state) {
   };
 }
 
+//Return your data to your provider
 export default connect(mapStateToProps)(App);
