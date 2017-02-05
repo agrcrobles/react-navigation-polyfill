@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {
-  addNavigationHelpers
+  addNavigationHelpers,
+  createNavigationContainer
 } from 'react-navigation';
 
 import { connect } from 'react-redux';
@@ -11,7 +12,7 @@ import Sidebar from './Sidebar';
 import { View, StyleSheet } from 'react-native';
 
 
-class DrawerNavigationView extends React.Component {
+class DrawerNavigator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,5 +58,7 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-export default DrawerNavigationView;
+
+
+export default DrawerNavigator;
 

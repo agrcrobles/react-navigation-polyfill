@@ -1,17 +1,52 @@
 import React from 'react';
 
-import {
-  StackRouter,
-  createNavigator,
-  addNavigationHelpers
-} from 'react-navigation';
+import { addNavigationHelpers  } from 'react-navigation';
 
-import NavigationView from './NavigationViews/DrawerNavigationView';
+import {
+  View,
+  StyleSheet,
+  Button,
+  Text
+} from 'react-native';
+
+import { DrawerNavigator } from './NavigationViews';
 
 import { connect } from 'react-redux';
 
-import Home from './Home';
-import Page from './Page';
+const Home = ({ navigation }) => (
+  <View style={styles.container} >
+
+    <Text style={styles.text}>
+      This is Home Page
+    </Text>
+
+    <Button title="Page" style={styles.button} onPress={() => navigation.navigate('Page')} />
+  </View>
+);
+const Page = ({ navigation }) => (
+  <View style={styles.container} >
+
+    <Text style={styles.text}>
+      Page {((navigation.state || {}).params || {}).index}
+    </Text>
+
+    <Button title="Back" style={styles.button} onPress={() => navigation.goBack()} />
+
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  text: {
+    padding: 20,
+    alignSelf: 'center'
+  },
+  button: {
+    flex: 1
+  },
+});
 
 const routes = {
   Home: {
@@ -23,9 +58,8 @@ const routes = {
     path: 'page'
   }
 };
-const Router = StackRouter(routes);
 
-export const Navigator = createNavigator(Router)(NavigationView);
+export const Navigator = DrawerNavigator(routes);
 
 const App = (props) => (
   <Navigator
