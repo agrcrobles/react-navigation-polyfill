@@ -17,6 +17,7 @@
     "react-native-web": "0.0.68",
     "react-navigation": "^1.0.0-beta.1",
     "react-redux": "^5.0.1",
+    "react-sidebar": "^2.2.1",
     "react-swipeable-views": "^0.10.4",
     "redux": "^3.6.0",
     "webpack": "^1.14.0"
