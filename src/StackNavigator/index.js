@@ -2,9 +2,13 @@ import React from 'react';
 
 import SwipeableViews from 'react-swipeable-views';
 
-const Scene = (props) => {
+import { defaultContent } from './defaults';
+
+import { Bar } from './bar';
+
+const renderScene = (props) => {
   const Component = props.router.getComponentForRouteName(props.scene.routeName);
-  
+
   const navigate = props.navigation.navigate;
   props.navigation.navigate = (route, params, action) => {
     props.handleClick(props.index + 1);
@@ -15,20 +19,27 @@ const Scene = (props) => {
     props.handleClick(props.index);
     back(route, params, action);
   };
+  const MyRoute = props.routes[props.scene.routeName];
 
-  return <Component index={props.index} key={props.index} {...props} />;
+  if (props.config.headerMode === 'screen' && (MyRoute.visible || MyRoute.visible === undefined)) {
+    const title = MyRoute.title || props.scene.routeName;
+    return <div key={props.index}>
+      <Bar
+        titleStyle={MyRoute.titleStyle || {}}
+        route={props.scene.routeName}
+        navigation={props.navigation}
+        router={props.router}
+      />
+      <Component index={props.index} {...props} />
+    </div>;
+  }
+  return <Component index={props.index} {...props} />;
 };
 
-const Header = (props) => {
-  if (props.index === props.selected) {
-    return <div style={props.styles.itemSelected}>{props.route}</div>
-  }
-  return <div onClick={() => {props.navigation.navigate(props.route)}} style={props.styles.item}>{props.route}</div>
-}
-
-class TabNavigator extends React.Component {
+class StackNavigator extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       index: 0
     };
@@ -41,22 +52,19 @@ class TabNavigator extends React.Component {
   render() {
     return (
       <div>
-        <div style={this.props.styles.header}>
-          {Object.keys(this.props.routes).map((route, index) => <Header styles={this.props.styles} selected={this.state.index} index={index} key={index} navigation={this.props.navigation} route={route} />)}
-        </div>
         <SwipeableViews index={this.state.index}>
           {this.props.navigation.state.routes.map(
-            (scene, index) => Scene({
+            (scene, index) => renderScene({
               ...this.props,
               scene,
               index,
               handleClick: this.handleClick.bind(this)
             })
           )}
-      </SwipeableViews>
+        </SwipeableViews>
       </div>
     );
   }
 }
 
-export default TabNavigator;
+export default StackNavigator;

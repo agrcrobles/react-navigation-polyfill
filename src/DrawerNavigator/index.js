@@ -7,10 +7,11 @@ import {
 
 import { connect } from 'react-redux';
 
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 
 import { View, StyleSheet } from 'react-native';
 
+import { defaultContent } from './defaults';
 
 class DrawerNavigator extends React.Component {
   constructor(props) {
@@ -31,15 +32,14 @@ class DrawerNavigator extends React.Component {
     const Component = router.getComponentForState(navigation.state);
 
     return (
-      <View style={this.props.inlineStyles.main} onClick={() => this.toggleSidebarOpen()}>
+      <View style={{flex: 1}} onClick={() => this.toggleSidebarOpen()}>
         <Sidebar
+          {...this.props}
           navigation={addNavigationHelpers({
-            ...navigation,
-            state: navigation.state.routes[navigation.state.index],
+            ...navigation
           })}
           routes={this.props.routes}
           sidebarOpen={this.state.sidebarOpen}
-          inlineStyles={this.props.inlineStyles}
           styles={this.props.styles}
         >
           <Component
@@ -55,4 +55,3 @@ class DrawerNavigator extends React.Component {
 };
 
 export default DrawerNavigator;
-
