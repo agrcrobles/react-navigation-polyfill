@@ -2,15 +2,15 @@
 
 ## Overview
 
-This is an experiment to bring some behaviors of the built-in [native](https://reactnavigation.org/docs/navigators/) navigator views of [react-navigation](https://reactnavigation.org) from native to the web.
+This is an experiment that brings some behavior from the built-in [native](https://reactnavigation.org/docs/navigators/) navigator views of [react-navigation](https://reactnavigation.org) for native to the web.
 
-To do that there is implemented some basic and similar behaviors and styles following the react-native api getting close in the way that [Navigation Views](https://reactnavigation.org/docs/views/) is implemented for `react-native` and you cannot find in web for now.
+Based on [Navigation Views](https://reactnavigation.org/docs/views/) this sample app implement some basic behaviors and styles following the react-native api  is implemented for `react-native`.
 
 ## DrawerNavigation
 
-Since it is not possible use [DrawerNavigation](https://reactnavigation.org/docs/navigators/drawer) on web, instead a built in view with drawer is implemented by [react-sidebar](https://github.com/balloob/react-sidebar) on it ( no drag and drop swippeable supported )
- - For more info about the supported api check it [here](https://github.com/agrcrobles/react-navigation-web/issues/3)
- - For some working code see [example](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/drawer.js)
+[DrawerNavigation](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead a built in view with drawer is implemented using [react-sidebar](https://github.com/balloob/react-sidebar) ( drag and drop swippeable is not yet supported )
+ - More info on api check [here](https://github.com/agrcrobles/react-navigation-web/issues/3)
+ - More working code see the [examples](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/drawer.js)
 
 ![alt tag](https://raw.githubusercontent.com/agrcrobles/react-navigation-web/master/assets/Drawer.gif)
 
@@ -44,9 +44,9 @@ export const Navigator = DrawerNavigator({
 
 ## StackNavigation
 
-Since it is not possible use [StackNavigator](https://reactnavigation.org/docs/navigators/stack) on web, instead a swipeable built in view is implemented contaning a [react-swipeable-views](https://github.com/oliviertassinari/react-swipeable-views) on it ( no drag and drop supported )
- - For more info about the supported api check it [here](https://github.com/agrcrobles/react-navigation-web/issues/1)
- - For some working code see [example](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/stack.js)
+[StackNavigator](https://reactnavigation.org/docs/navigators/stack) can be used on web, instead a swipeable built in view is implemented using [react-swipeable-views](https://github.com/oliviertassinari/react-swipeable-views) ( drag and drop not yet supported )
+ - More info on api check [here](https://github.com/agrcrobles/react-navigation-web/issues/1)
+ - More working code see the [examples](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/stack.js)
 
 ![alt tag](https://raw.githubusercontent.com/agrcrobles/react-navigation-web/master/assets/Stack.gif)
 
@@ -79,10 +79,10 @@ export const Navigator = StackNavigator({
 
 ## TabNavigation
 
-Since it is not possible use [TabNavigator](https://reactnavigation.org/docs/navigators/tab) on web, instead a built in view for me is implemented contaning a header on it.
+[TabNavigator](https://reactnavigation.org/docs/navigators/tab) can't be used on web, instead a built in view contaning a header is implemented.
 
- - For more info about the supported api check it [here](https://github.com/agrcrobles/react-navigation-web/issues/2)
- - For some working code see [example](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/tab.js)
+ - More info on api check [here](https://github.com/agrcrobles/react-navigation-web/issues/2)
+ - More working code see the [examples](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/tab.js)
 
 
 ![alt tag](https://raw.githubusercontent.com/agrcrobles/react-navigation-web/master/assets/Tab.gif)
@@ -131,7 +131,7 @@ npm i --save-dev react-navigator-web
 
 ## Configure Redux yourself
 
-So simple, use your redux store out of the box, just invoke [addNavigationHelpers](https://reactnavigation.org/docs/guides/redux) and bind your state with `getStateForAction` as it is said in the documentation
+Next just use your redux store out of the box. Invoke [addNavigationHelpers](https://reactnavigation.org/docs/guides/redux) and bind your state using `getStateForAction` as always.
 
 ```
 // passing your navigator through your main App
@@ -155,11 +155,11 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(App);
 ```
 
-Go [here](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/navigation.js) for more information
+[Here](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/navigation.js) you can find more information.
 
 ### Create your pages
 
-Use react-native tags and syntax to create your scenes and pages
+Use react-native tags and syntax to create your scenes and pages.
 
 ```
 export const Page = ({ navigation }) => (
@@ -177,11 +177,11 @@ export const Page = ({ navigation }) => (
 
 It doesn't work with webpack 2: As it has been discussed [here](https://github.com/react-community/react-navigation/issues/188) libraries for react-navigation are not transpiled.
 
-This is because react-native transpile every module in the packager so the same behavior is expected in the [webpack.config](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/webpack.config.js#L26) include node_modules folder.
+This is happens because react-native transpile every module in the packager and the same behavior is expected in the [webpack.config](https://github.com/agrcrobles/react-navigation-web/blob/master/src/examples/webpack.config.js#L26) include node_modules folder.
 
 ## Overall
 
-This library comes as a temporary solution from the [discussion](https://github.com/react-community/react-navigation/issues/174) in react-navigation because there aren't built in for web.
+This library si meant as a temporary solution following the [discussion](https://github.com/react-community/react-navigation/issues/174) in react-navigation and, mainly, because there isn't a built-in one for web.
 
 ## Contributing
 
