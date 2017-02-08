@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Button,
-  Text
+  Text,
+  Image
 } from 'react-native';
 
 //export navigator in order to get state for action in redux
@@ -14,6 +15,7 @@ const Main = class Main extends Component {
   static navigationOptions = {
     drawer: () => ({
       label: 'Drawer',
+      icon: (props) => <Image src={require('./images/react.png')} />
     })
   }
   render() {
@@ -30,16 +32,24 @@ const Main = class Main extends Component {
 }
 
 // home page
-const Page = ({ navigation }) => (
-  <View style={styles.flex} >
-    <Text style={styles.text}>
-      Page content here!
-    </Text>
-
-    <Button title='Back' style={styles.flex} onPress={() => navigation.goBack()} />
-
-  </View>
-);
+const Page = class Page extends Component {
+  static navigationOptions = {
+    drawer: () => ({
+      label: 'Drawe2'
+    })
+  }
+  render() {
+    const { navigation } = this.props;
+    return (
+      <View style={styles.flex} >
+        <Text style={styles.text}>
+          Page content here!
+        </Text>
+      <Button title='Back' style={styles.flex} onPress={() => navigation.goBack()} />
+      </View>
+    );
+  }
+};
 
 
 // some styles

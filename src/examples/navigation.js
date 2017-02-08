@@ -4,9 +4,9 @@ import { addNavigationHelpers  } from 'react-navigation';
 
 import { connect } from 'react-redux';
 
-// import { Routes, Navigator as Nav } from './drawer';
+import { Routes, Navigator as Nav } from './drawer';
 // import { Routes, Navigator as Nav } from './tab';
-import { Routes, Navigator as Nav } from './stack';
+// import { Routes, Navigator as Nav } from './stack';
 
 export const Navigator = Nav;
 

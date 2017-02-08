@@ -1,10 +1,13 @@
 import React from 'react';
 
-import SwipeableViews from 'react-swipeable-views';
-
 import { Bar } from './bar';
 
+import {
+  addNavigationHelpers
+} from 'react-navigation';
+
 const Scene = (props) => {
+  console.log(props.scene.routeName);
   const Component = props.router.getComponentForRouteName(props.scene.routeName);
 
   const navigate = props.navigation.navigate;
@@ -29,20 +32,35 @@ class TabNavigator extends React.Component {
     };
   }
   handleClick(index) {
+    console.log(index);
     this.setState({
       index
     })
   }
   render() {
-    const { tabBarOptions } = this.props.config;
+    const { navigationOptions } = this.props.config;
+
+    const flexDirection = this.props.config.tabBarPosition === 'top' ?
+      'column' : 'column-reverse';
+
+    const { navigation, router } = this.props;
+
+    const Component = router.getComponentForState(navigation.state);
 
     return (
-      <div>
-        <div style={tabBarOptions.style}>
+      <div style={{
+        display: 'flex',
+        flexDirection,
+        height: '100%'
+      }}>
+        <div style={{
+          ...navigationOptions.style,
+          display: 'flex'
+        }}>
           {Object.keys(this.props.routes).map((route, index) =>
             <Bar
               config={this.props.config}
-              selected={this.state.index}
+              selected={this.props.navigation.state.routes[this.props.navigation.state.index]}
               index={index}
               key={index}
               router={this.props.router}
@@ -52,20 +70,35 @@ class TabNavigator extends React.Component {
             )
           }
         </div>
-        <SwipeableViews index={this.state.index}>
-          {this.props.navigation.state.routes.map(
-            // Uncaught TypeError: Cannot read property 'routes' of null
-            (scene, index) => Scene({
-              ...this.props,
-              scene,
-              index,
-              handleClick: this.handleClick.bind(this)
-            })
-          )}
-      </SwipeableViews>
+        <Component
+          navigation={addNavigationHelpers({
+            ...navigation,
+            state: navigation.state.routes[navigation.state.index]
+          })}
+        />
       </div>
     );
   }
 }
 
 export default TabNavigator;
+
+//   <SwipeableViews
+//     style={{
+//       height: '100%',
+//       display: 'flex'
+//     }}
+//     containerStyle={{width: "100%"}}
+//     index={this.state.index}
+//     animateTransitions={this.props.config.animationEnabled}
+//   >
+//     {this.props.navigation.state.routes.map(
+//       // Uncaught TypeError: Cannot read property 'routes' of null
+//       (scene, index) => Scene({
+//         ...this.props,
+//         scene,
+//         index,
+//         handleClick: this.handleClick.bind(this)
+//       })
+//     )}
+// </SwipeableViews>

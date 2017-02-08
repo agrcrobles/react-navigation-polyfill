@@ -13,7 +13,11 @@ import { StackNavigator } from '../';
 // home page
 const Main = class Main extends Component {
   static navigationOptions = {
-    title: 'Home'
+    title: () => 'Home',
+    titleStyle: {
+      backgroundColor: 'red'
+    },
+    tintColor: 'green'
   }
   render() {
     return (
@@ -65,5 +69,6 @@ export const Routes = {
 
 export const Navigator = StackNavigator(Routes,{
   initialRouteName: 'Main',
-  initialRouteParams: {}
+  initialRouteParams: {},
+  headerMode: 'screen', //'none'
 });

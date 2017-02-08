@@ -1,10 +1,10 @@
 const defaultOptions = {
-  activeTintColor: '#444',
-  activeBackgroundColor: '#999',
-  inactiveTintColor: '',
-  inactiveBackgroundColor: '#999',
+  inactiveTintColor: '#ddd',
+  // activeBackgroundColor: '#999',
+  activeTintColor: 'white',
+  // inactiveBackgroundColor: '#999',
   style: {
-    backgroundColor: '#999',
+    backgroundColor: '#2196F3',
     display: 'flex',
     color: '#fbfbfb'
   },
@@ -20,12 +20,13 @@ export const defaultConfig = {
   tabBarComponent: '', // no implement
   tabBarPosition: 'top', // top
   swipeEnabled: '', // not swipe on web for now
-  animationEnabled: '', // true
+  animationEnabled: true, // true
   lazyLoad: '', // no support
-  tabBarOptions: defaultOptions,
+  navigationOptions: defaultOptions,
+  header: {
+    visible: true
+  },
   Several: '',
-  initialRouteName: '',
   order: '',
-  paths: '',
   backBehavior: '' // good question
 };

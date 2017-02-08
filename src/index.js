@@ -40,7 +40,10 @@ export const StackNavigator = (RouteConfigs, StackNavigatorConfig) => {
     initialRouteName,
     initialRouteParams,
     paths,
-    navigationOptions,
+    navigationOptions: {
+      ...StackDefaultConfig.navigationOptions,
+      ...StackNavigatorConfig.navigationOptions
+    }
   };
 
   const Routes = StackRouter(RouteConfigs, stackRouterConfig);
@@ -58,7 +61,7 @@ export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig) => {
     initialRouteName,
     initialRouteParams,
     paths,
-    navigationOptions,
+    navigationOptions
   } = Config;
 
   const drawerRouterConfig = {
@@ -77,7 +80,11 @@ export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig) => {
 export const TabNavigator = (RouteConfigs, TabNavigatorConfig) => {
   const Config = {
     ...TabNavigatorDefaultConfig,
-    ...TabNavigatorConfig
+    ...TabNavigatorConfig,
+    navigationOptions: {
+      ...TabNavigatorDefaultConfig.navigationOptions,
+      ...TabNavigatorConfig.navigationOptions
+    }
   };
 
   const {
@@ -94,7 +101,7 @@ export const TabNavigator = (RouteConfigs, TabNavigatorConfig) => {
     navigationOptions,
   };
 
-  const Routes = TabRouter(RouteConfigs, tabRouterConfig);
+  const Routes = StackRouter(RouteConfigs, tabRouterConfig);
 
   return createNavigator(Routes)((props) => <Tab {...props} config={Config} />);
 };

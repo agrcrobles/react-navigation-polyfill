@@ -1,35 +1,85 @@
 import React from 'react';
 import Sidebar from 'react-sidebar';
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 import { defaultContent } from './defaults';
 
-const SidebarContent = (props) => <View style={styles.content}>
+const SidebarContent = (props) => <View style={innerStyles.content}>
   {
     Object.keys(props.routes).map((item, index) => {
+
+      const invokeIt = (result) => {
+        if (typeof result === 'function') {
+          return result();
+        }
+        if (result) {
+          return result;
+        }
+        return;
+      }
+      const getProp = (state, prop, alt) => {
+        const result = props.router.getScreenConfig(state, prop);
+        return invokeIt(result) || alt;
+      }
 
       const configKey = {
         state: {
           routeName: item
         }
       };
-      const drawer = props.router.getScreenConfig(configKey, 'drawer');
+      let inner;
+      const drawer = getProp(configKey, 'drawer');
+
+      if (drawer) {
+        const icon = invokeIt(drawer.icon);
+        if (typeof icon === 'function') {
+          inner = <icon />;
+        } else if (icon) {
+          inner = icon
+        } else if (typeof drawer.label === 'function' ) {
+          inner = <drawer.label />
+        } else if (drawer.label) {
+          inner = drawer.label
+        }
+      }
+      if (props.selected.routeName === item) {
+        return (
+          <div key={item} style={
+            styles.itemSelected
+          }>
+              {inner}
+          </div>
+        );
+      }
       return (
-        <TouchableOpacity key={item} style={styles.item} onPress={() => props.navigation.navigate(item)}>
-          {(drawer && drawer.label) || item}
-        </TouchableOpacity>
+        <div key={item} style={
+          styles.item
+        } onClick={() => props.navigation.navigate(item)}>
+            {inner}
+        </div>
       );
+
     })
   }
 </View>;
 
-const styles = StyleSheet.create({
+const styles = {
   item: {
     padding: 20,
-    paddingRight: 100,
-    cursor: 'pointer'
+    paddingRight: 150,
+    cursor: 'pointer',
+    fontWeight: 600
   },
+  itemSelected: {
+    fontWeight: 600,
+    padding: 20,
+    paddingRight: 150,
+    color: '#2196F3',
+    backgroundColor: '#eee'
+  }
+};
+const innerStyles = StyleSheet.create({
   content: {
     flex: 1
   }
@@ -37,7 +87,6 @@ const styles = StyleSheet.create({
 
 class Component extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <Sidebar
         sidebar={<SidebarContent {...this.props} />}

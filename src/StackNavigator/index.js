@@ -21,7 +21,7 @@ const renderScene = (props) => {
   };
   const MyRoute = props.routes[props.scene.routeName];
 
-  if (props.config.headerMode === 'screen' && (MyRoute.visible || MyRoute.visible === undefined)) {
+  if (props.config.headerMode === 'screen' && (MyRoute.header || MyRoute.visible === undefined)) {
     const title = MyRoute.title || props.scene.routeName;
     return <div key={props.index}>
       <Bar
@@ -29,6 +29,7 @@ const renderScene = (props) => {
         route={props.scene.routeName}
         navigation={props.navigation}
         router={props.router}
+        config={props.config}
       />
       <Component index={props.index} {...props} />
     </div>;
@@ -39,7 +40,6 @@ const renderScene = (props) => {
 class StackNavigator extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       index: 0
     };
@@ -51,8 +51,8 @@ class StackNavigator extends React.Component {
   }
   render() {
     return (
-      <div>
-        <SwipeableViews index={this.state.index}>
+      <div style={{display: 'flex', flex:1, flexDirection: 'column'}}>
+        <SwipeableViews containerStyle={{width: '100%'}} style={{height: '100%', display: 'flex'}} index={this.state.index}>
           {this.props.navigation.state.routes.map(
             (scene, index) => renderScene({
               ...this.props,

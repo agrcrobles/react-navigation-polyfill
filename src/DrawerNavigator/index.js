@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {
-  addNavigationHelpers,
-  createNavigationContainer
+  addNavigationHelpers
 } from 'react-navigation';
 
 import { connect } from 'react-redux';
@@ -41,6 +40,7 @@ class DrawerNavigator extends React.Component {
           routes={this.props.routes}
           sidebarOpen={this.state.sidebarOpen}
           styles={this.props.styles}
+          selected={navigation.state.routes[navigation.state.index]}
         >
           <Component
             navigation={addNavigationHelpers({

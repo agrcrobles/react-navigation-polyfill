@@ -12,18 +12,16 @@ import {
 // home page
 const Main = class Main extends Component {
   static navigationOptions = {
-    tabBar: {
-      title: 'Home'
-    }
+    tabBar: ({ state }) => ({
+      icon: ({ tintColor, focused }) => <Text>SOMETHING</Text>
+    })
   }
   render() {
     return (
       <View style={styles.flex} >
-
         <Text style={styles.text}>
           This is some main text for tab navigation
         </Text>
-
         <Button title='Page' style={styles.flex} onPress={() => this.props.navigation.navigate('Page')} />
       </View>
     );
@@ -66,5 +64,10 @@ export const Routes = {
 
 export const Navigator = TabNavigator(Routes,{
   initialRouteName: 'Main',
-  initialRouteParams: {}
+  initialRouteParams: {},
+  navigationOptions: {
+    header: {
+      visible: true
+    }
+  }
 });
