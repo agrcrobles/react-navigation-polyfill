@@ -23,7 +23,7 @@ import Drawer from './DrawerNavigator';
 import Tab from './TabNavigator';
 import Stack from './StackNavigator';
 
-export const StackNavigator = (RouteConfigs, StackNavigatorConfig) => {
+export const StackNavigator = (RouteConfigs, StackNavigatorConfig = {}) => {
   const Config = {
     ...StackDefaultConfig,
     ...StackNavigatorConfig
@@ -51,10 +51,18 @@ export const StackNavigator = (RouteConfigs, StackNavigatorConfig) => {
   return createNavigator(Routes, StackNavigatorConfig)((props) => <Stack {...props} config={Config} />);
 };
 
-export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig) => {
+export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig = {} ) => {
   const Config = {
     ...DrawerNavigatorDefaultConfig,
-    ...DrawerNavigatorConfig
+    ...DrawerNavigatorConfig,
+    contentOptions: {
+      ...DrawerNavigatorDefaultConfig.contentOptions,
+      ...DrawerNavigatorConfig.contentOptions,
+      style: {
+        ...DrawerNavigatorDefaultConfig.contentOptions.style,
+        ...(DrawerNavigatorConfig.contentOptions || {}).style
+      }
+    }
   };
 
   const {
@@ -70,14 +78,12 @@ export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig) => {
     paths,
     navigationOptions,
   };
-  // todo: move to TabRouter when stable
-
-  const Routes = StackRouter(RouteConfigs, drawerRouterConfig);
+  const Routes = TabRouter(RouteConfigs, drawerRouterConfig);
 
   return createNavigator(Routes)(((props) => <Drawer {...props} config={Config} />));
 };
 
-export const TabNavigator = (RouteConfigs, TabNavigatorConfig) => {
+export const TabNavigator = (RouteConfigs, TabNavigatorConfig = {}) => {
   const Config = {
     ...TabNavigatorDefaultConfig,
     ...TabNavigatorConfig,

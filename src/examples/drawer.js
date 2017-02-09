@@ -15,7 +15,7 @@ const Main = class Main extends Component {
   static navigationOptions = {
     drawer: () => ({
       label: 'Drawer',
-      icon: (props) => <Image src={require('./images/react.png')} />
+      icon: (props) => <Text>Hello</Text>
     })
   }
   render() {
@@ -35,7 +35,7 @@ const Main = class Main extends Component {
 const Page = class Page extends Component {
   static navigationOptions = {
     drawer: () => ({
-      label: 'Drawe2'
+      label: 'Page'
     })
   }
   render() {

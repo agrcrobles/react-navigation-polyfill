@@ -1,16 +1,4 @@
-export const defaultConfig = {
-  drawerWidth: 200,
-  drawerPosition: 'left', // left or right
-  contentComponent: '',
-  contentOptions: '',
-  Several: '',
-  initialRouteName: '',
-  order: '',
-  paths: '',
-  backBehavior: ''
-};
-
-export const defaultContent = {
+const defaultContent = {
   activeTintColor: '',
   activeBackgroundColor: '',
   inactiveTintColor: '',
@@ -20,3 +8,11 @@ export const defaultContent = {
     backgroundColor: 'white'
   }
 };
+export const defaultConfig = {
+  drawerWidth: 200,
+  drawerPosition: 'left', // left or right
+  contentComponent: '', // ( navigation ) => render
+  contentOptions: defaultContent,
+  backBehavior: ''
+};
+

@@ -1,25 +1,25 @@
 import React from 'react';
 
+import { invoke } from '../helpers';
+
 export const Bar = (props) => {
   const state = {
     state: props.navigation.state.routes[props.navigation.state.index],
   };
-  const { navigationOptions } = props.config;
+  const { options } = props;
 
-  const getProp = (state, prop, alt) => {
+  const getProp = (state, prop, defaults) => {
     const result = props.router.getScreenConfig(state, prop);
-    if (typeof result === 'function') {
-      return result();
-    }
-    if (result) {
-      return result;
-    }
-    return alt;
+    return invoke(result, props, defaults);
   }
-  const title = getProp(state, 'title', navigationOptions.title);
-  const header = getProp(state, 'header', navigationOptions.header);
-  const titleStyle = getProp(state, 'titleStyle', navigationOptions.titleStyle);
-  const tintColor = getProp(state, 'tintColor', navigationOptions.tintColor);
+
+  const title = getProp(state, 'title', options.title) || props.route;
+
+  // const header = getProp(state, 'header', options.header);
+
+  const titleStyle = getProp(state, 'titleStyle', options.titleStyle);
+
+  const tintColor = getProp(state, 'tintColor', options.tintColor);
 
   // add back
   if (props.navigation.state.routes.length > 1) {
@@ -38,7 +38,7 @@ export const Bar = (props) => {
         <div style={{
           paddingLeft: 30
         }}>
-          {title || props.route}
+          {title}
         </div>
       </div>
 
@@ -49,7 +49,7 @@ export const Bar = (props) => {
     ...headerStyles,
     ...props.headerStyles,
     color: tintColor
-  }}>{title || props.route}</div>;
+  }}>{title}</div>;
 }
 const back = {
   position: 'absolute',

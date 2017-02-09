@@ -28,7 +28,6 @@ const Main = class Main extends Component {
   };
 }
 
-// any other page
 const Page = ({ navigation }) => (
   <View style={styles.flex} >
 
@@ -40,7 +39,9 @@ const Page = ({ navigation }) => (
 
   </View>
 );
-
+Page.navigationOptions = {
+  title: () => 'Firulais'
+};
 // some styles
 const styles = StyleSheet.create({
   flex: {
@@ -66,8 +67,11 @@ export const Navigator = TabNavigator(Routes,{
   initialRouteName: 'Main',
   initialRouteParams: {},
   navigationOptions: {
-    header: {
-      visible: true
-    }
-  }
+    activeTintColor: '#e91e63',
+    style: {
+      backgroundColor: '#999',
+      display: 'flex',
+      color: '#fbfbfb'
+    },
+  },
 });

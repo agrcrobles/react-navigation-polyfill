@@ -10,8 +10,6 @@ import Sidebar from './sidebar';
 
 import { View, StyleSheet } from 'react-native';
 
-import { defaultContent } from './defaults';
-
 class DrawerNavigator extends React.Component {
   constructor(props) {
     super(props);
@@ -37,9 +35,7 @@ class DrawerNavigator extends React.Component {
           navigation={addNavigationHelpers({
             ...navigation
           })}
-          routes={this.props.routes}
           sidebarOpen={this.state.sidebarOpen}
-          styles={this.props.styles}
           selected={navigation.state.routes[navigation.state.index]}
         >
           <Component

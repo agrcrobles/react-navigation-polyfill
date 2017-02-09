@@ -6,24 +6,6 @@ import {
   addNavigationHelpers
 } from 'react-navigation';
 
-const Scene = (props) => {
-  console.log(props.scene.routeName);
-  const Component = props.router.getComponentForRouteName(props.scene.routeName);
-
-  const navigate = props.navigation.navigate;
-  props.navigation.navigate = (route, params, action) => {
-    props.handleClick(props.index + 1);
-    navigate(route, params, action);
-  };
-  const back = props.navigation.goBack;
-  props.navigation.goBack = (route, params, action) => {
-    props.handleClick(props.index);
-    back(route, params, action);
-  };
-
-  return <Component index={props.index} key={props.index} {...props} />;
-};
-
 class TabNavigator extends React.Component {
   constructor(props) {
     super(props);
@@ -63,6 +45,7 @@ class TabNavigator extends React.Component {
               selected={this.props.navigation.state.routes[this.props.navigation.state.index]}
               index={index}
               key={index}
+              navigationOptions={navigationOptions}
               router={this.props.router}
               navigation={this.props.navigation}
               route={route}
@@ -82,23 +65,3 @@ class TabNavigator extends React.Component {
 }
 
 export default TabNavigator;
-
-//   <SwipeableViews
-//     style={{
-//       height: '100%',
-//       display: 'flex'
-//     }}
-//     containerStyle={{width: "100%"}}
-//     index={this.state.index}
-//     animateTransitions={this.props.config.animationEnabled}
-//   >
-//     {this.props.navigation.state.routes.map(
-//       // Uncaught TypeError: Cannot read property 'routes' of null
-//       (scene, index) => Scene({
-//         ...this.props,
-//         scene,
-//         index,
-//         handleClick: this.handleClick.bind(this)
-//       })
-//     )}
-// </SwipeableViews>

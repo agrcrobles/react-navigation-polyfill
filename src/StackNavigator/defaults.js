@@ -1,10 +1,9 @@
 const defaultOptions = {
-  title: '', // implemented
-  header: '',
-  visible: '',
-  title: '',
-  right: '',
-  left: '',
+  // title: '', // implemented
+  // header: '',
+  visible: true,
+  // right: '',
+  // left: '',
   style: {},
   titleStyle: {}, // implemented
   tintColor: ''

@@ -124,9 +124,9 @@ export const Navigator = TabNavigator({
 
 ## Quick start
 
-### Install react-navigator-web
+### Install react-navigation-web-web
 ```
-npm i --save-dev react-navigator-web
+npm i --save-dev react-navigation-web
 ```
 
 ## Configure Redux yourself
@@ -172,6 +172,9 @@ export const Page = ({ navigation }) => (
     />
   </View>
 );
+Page.navigationOptions = {
+  title: () => 'Firulais'
+};
 ```
 ## Known issues
 

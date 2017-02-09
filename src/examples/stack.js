@@ -45,7 +45,9 @@ const Page = ({ navigation }) => (
 
   </View>
 );
-
+Page.navigationOptions = {
+  title: () => 'Crazy page'
+};
 // some styles
 const styles = StyleSheet.create({
   flex: {

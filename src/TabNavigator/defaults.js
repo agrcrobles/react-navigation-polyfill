@@ -13,7 +13,10 @@ const defaultOptions = {
     cursor: 'pointer',
     flex: 1,
     textAlign: 'center'
-  }
+  },
+  header: {
+    visible: true
+  },
 };
 
 export const defaultConfig = {
@@ -23,10 +26,6 @@ export const defaultConfig = {
   animationEnabled: true, // true
   lazyLoad: '', // no support
   navigationOptions: defaultOptions,
-  header: {
-    visible: true
-  },
-  Several: '',
   order: '',
   backBehavior: '' // good question
 };
