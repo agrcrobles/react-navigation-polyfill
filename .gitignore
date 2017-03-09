@@ -1,6 +1,5 @@
 # node
 node_modules
 node-debug.log
-
-#
-dist
+npm-debug.log
+examples/build/bundle.js

@@ -1,107 +1,32 @@
-import React from 'react';
+/*
+ * @noflow - get/set properties not yet supported by flow. also `...require(x)` is broken #6560135
+ */
 
-import {
-  StackRouter,
-  TabRouter,
-  createNavigator
-} from 'react-navigation';
+module.exports = {
 
-import {
-  defaultConfig as StackDefaultConfig
-} from './StackNavigator/defaults';
+  // Core
+  get createNavigationContainer() { return require('react-navigation/lib/createNavigationContainer').default; },
+  get StateUtils() { return require('react-navigation/lib/StateUtils').default; },
+  get PropTypes() { return require('react-navigation/lib/PropTypes').default; },
+  get addNavigationHelpers() { return require('react-navigation/lib/addNavigationHelpers').default; },
+  get NavigationActions() { return require('react-navigation/lib/NavigationActions').default; },
 
-import {
-  defaultConfig as TabNavigatorDefaultConfig
-} from './TabNavigator/defaults';
+  // Navigators
+  get createNavigator() { return require('react-navigation/lib/navigators/createNavigator').default; },
+  get StackNavigator() { return require('./navigators/StackNavigator').default; },
+  get TabNavigator() { return require('./navigators/TabNavigator').default; },
+  get DrawerNavigator() { return require('./navigators/DrawerNavigator').default; },
 
-import {
-  defaultConfig as DrawerNavigatorDefaultConfig
-} from './DrawerNavigator/defaults';
+  // Routers
+  get StackRouter() { return require('react-navigation/lib/routers/StackRouter').default; },
+  get TabRouter() { return require('react-navigation/lib/routers/TabRouter').default; },
 
+  // Views
+  get Transitioner() { return require('react-navigation/lib/views/Transitioner').default; },
+  get CardStack() { return require('react-navigation/lib/views/CardStack').default; },
+  get DrawerView() { return require('./views/Drawer/DrawerView').default; },
+  get TabView() { return require('react-navigation/lib/views/TabView/TabView').default; },
 
-import Drawer from './DrawerNavigator';
-import Tab from './TabNavigator';
-import Stack from './StackNavigator';
-
-export const StackNavigator = (RouteConfigs, StackNavigatorConfig) => {
-  const Config = {
-    ...StackDefaultConfig,
-    ...StackNavigatorConfig
-  };
-
-  const {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-  } = Config;
-
-  const stackRouterConfig = {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions: {
-      ...StackDefaultConfig.navigationOptions,
-      ...StackNavigatorConfig.navigationOptions
-    }
-  };
-
-  const Routes = StackRouter(RouteConfigs, stackRouterConfig);
-
-  return createNavigator(Routes, StackNavigatorConfig)((props) => <Stack {...props} config={Config} />);
-};
-
-export const DrawerNavigator = (RouteConfigs, DrawerNavigatorConfig) => {
-  const Config = {
-    ...DrawerNavigatorDefaultConfig,
-    ...DrawerNavigatorConfig
-  };
-
-  const {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions
-  } = Config;
-
-  const drawerRouterConfig = {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-  };
-  // todo: move to TabRouter when stable
-
-  const Routes = StackRouter(RouteConfigs, drawerRouterConfig);
-
-  return createNavigator(Routes)(((props) => <Drawer {...props} config={Config} />));
-};
-
-export const TabNavigator = (RouteConfigs, TabNavigatorConfig) => {
-  const Config = {
-    ...TabNavigatorDefaultConfig,
-    ...TabNavigatorConfig,
-    navigationOptions: {
-      ...TabNavigatorDefaultConfig.navigationOptions,
-      ...TabNavigatorConfig.navigationOptions
-    }
-  };
-
-  const {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-  } = Config;
-
-  const tabRouterConfig = {
-    initialRouteName,
-    initialRouteParams,
-    paths,
-    navigationOptions,
-  };
-
-  const Routes = StackRouter(RouteConfigs, tabRouterConfig);
-
-  return createNavigator(Routes)((props) => <Tab {...props} config={Config} />);
+  // HOCs
+  get withNavigation() { return require('react-navigation/lib/views/withNavigation').default; },
 };

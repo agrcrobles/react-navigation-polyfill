@@ -1,4 +1,6 @@
 {
-  "presets": ["react-native", "react", "es2015", "stage-0"],
-  "plugins": ["transform-object-rest-spread", "transform-flow-strip-types"]
+	"presets": ["react-native"],
+	"plugins": [
+		"transform-flow-strip-types",
+	]
 }

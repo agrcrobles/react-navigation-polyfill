@@ -2,49 +2,52 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
   entry: [
-    path.join(__dirname, 'src/index.js')
+    path.join(__dirname, 'src', 'index.js')
   ],
   externals: {
-    react: 'react'
+    react: 'react',
+    'react/lib/ReactComponentWithPureRenderMixin': 'react/lib/ReactComponentWithPureRenderMixin',
+    'react-native': 'react-native'
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          require.resolve('url-loader'),
-          require.resolve('img-loader')
-        ]
+        test: /.js$/,
+        exclude: /node_modules(?!\/react-native-tab-view)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.js$/,
-        // exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: { cacheDirectory: true },
- 		     presets: ['es2015', 'react', 'stage-0'],
-	       plugins: ['transform-object-rest-spread', 'transform-flow-strip-types']
-      }
+        test: /\.(gif|jpe?g|png|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            query: { name: '[name].[hash:16].[ext]' }
+          }
+        ]
+      },
     ]
   },
   output: {
-    library: 'react-navigator-web',
-    libraryTarget: 'commonjs',
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
-  },
-  resolve: {
-    modulesDirectories: ['./app/', './node_modules'],
-    alias: {
-      'react-native': 'react-native-web'
-    }
+    filename: 'ReactNavigation.js',
+    library: 'ReactNavigation',
+    libraryTarget: 'umd',
+    filename: 'index.js'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({})
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ],
+  resolve: {
+    extensions: ['.js'],
+  }
 };
