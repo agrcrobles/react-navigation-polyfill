@@ -48,7 +48,7 @@ module.exports = {
     ],
     alias: {
       'react-native': 'react-native-web',
-      'react-navigation': path.join(__dirname, '..', 'dist')
+      'react-navigation': 'react-navigation-web'
     }
   }
 };

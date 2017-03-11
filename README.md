@@ -1,6 +1,6 @@
 # Built in views for web
 
-> react-navigation wrapper for web version 1.0.0-beta.6
+> react-navigation wrapper for web version 1.0.0-beta.7 could be unnecesary and deprecated.
 
 ## Overview
 
@@ -30,7 +30,7 @@ npm i --save https://github.com/agrcrobles/react-navigation-web.git
 
 ### DrawerNavigator
 
- [DrawerNavigation](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead a built in view for web with drawer is decorated using [react-native-drawer-layout](https://github.com/react-native-community/react-native-drawer-layout)
+ [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead a built in view for web is wrapping the native one.
 
 ### TabNavigator
 
@@ -60,7 +60,7 @@ npm i --save https://github.com/agrcrobles/react-navigation-web.git
 
 #### Create React App
 
-> Not Supported!
+> [Supported](https://github.com/react-community/react-navigation/issues/622)
 
 ## About
 

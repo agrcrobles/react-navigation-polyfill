@@ -69,7 +69,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "026354a631bd4aa2dc7a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "90f163aa7c4a0cf8b2a6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1691,6 +1691,25 @@ module.exports = exports.default;
 
 /***/ }),
 
+/***/ "./node_modules/react-native-drawer-layout-polyfill/dist/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var _react = __webpack_require__(0);var _react2 = _interopRequireDefault(_react);
+var _reactNative = __webpack_require__(1);
+
+
+
+
+var _reactNativeDrawerLayout = __webpack_require__("./node_modules/react-native-drawer-layout/dist/DrawerLayout.js");var _reactNativeDrawerLayout2 = _interopRequireDefault(_reactNativeDrawerLayout);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+if (_reactNative.Platform.OS === 'android') {
+  module.exports = _reactNative.DrawerLayoutAndroid;
+} else {
+  module.exports = _reactNativeDrawerLayout2.default;
+}
+
+/***/ }),
+
 /***/ "./node_modules/react-native-drawer-layout/dist/DrawerLayout.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2108,6 +2127,7 @@ var _reactNative=__webpack_require__(1);
 
 
 
+
 var _TouchableItem=__webpack_require__("./node_modules/react-native-tab-view/src/TouchableItem.js");var _TouchableItem2=_interopRequireDefault(_TouchableItem);
 var _TabViewPropTypes=__webpack_require__("./node_modules/react-native-tab-view/src/TabViewPropTypes.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
 
@@ -2117,7 +2137,7 @@ container:{
 flex:1},
 
 scroll:{
-overflow:'scroll'},
+overflow:_reactNative.Platform.OS==='web'?'auto':'scroll'},
 
 tabBar:{
 backgroundColor:'#2196f3',
@@ -2528,13 +2548,15 @@ tabContainerStyle.flex=passedTabStyle.flex;
 tabContainerStyle.flex=1;
 }
 
+var accessibilityLabel=route.accessibilityLabel||route.title;
+
 return(
 _react2.default.createElement(_TouchableItem2.default,{
-accessible:true,
 borderless:true,
 key:route.key,
 testID:route.testID,
-accessibilityLabel:route.title,
+accessible:route.accessible,
+accessibilityLabel:accessibilityLabel,
 accessibilityTraits:'button',
 pressColor:_this3.props.pressColor,
 pressOpacity:_this3.props.pressOpacity,
@@ -3205,21 +3227,17 @@ style:styles.container,
 contentContainerStyle:layout.width?null:styles.container,
 ref:this._setRef},
 
-layout.width?_react.Children.map(children,function(child,i){return(
+_react.Children.map(children,function(child,i){return(
 _react2.default.createElement(_reactNative.View,{
 key:navigationState.routes[i].key,
 testID:navigationState.routes[i].testID,
-style:{width:layout.width,overflow:'hidden'}},
+style:
+layout.width?
+{width:layout.width,overflow:'hidden'}:
+i===0?styles.page:null},
 
-child));}):
 
-
-_react2.default.createElement(_reactNative.View,{
-key:navigationState.routes[navigationState.index].key,
-testID:navigationState.routes[navigationState.index].testID,
-style:styles.page},
-
-_react.Children.toArray(children)[navigationState.index])));
+i===0||layout.width?child:null));})));
 
 
 
@@ -4635,11 +4653,11 @@ childRouters[routeName]=screen.router;
 
 childRouters[routeName]=null;
 }
-});var _stackConfig$initialR=
+});var
 
 
-
-stackConfig.initialRouteParams,initialRouteParams=_stackConfig$initialR===undefined?{}:_stackConfig$initialR;
+initialRouteParams=
+stackConfig.initialRouteParams;
 
 var initialRouteName=stackConfig.initialRouteName||routeNames[0];
 
@@ -4701,9 +4719,10 @@ routeName:initialRouteName,
 params:initialRouteParams}));
 
 }
-var _params=(route.params||action.params)&&_extends({},
+var _params=(route.params||action.params||initialRouteParams)&&_extends({},
 route.params||{},
-action.params||{});
+action.params||{},
+initialRouteParams||{});
 
 route=_extends({},
 route,{
@@ -5634,6 +5653,10 @@ var NativeAnimatedModule=_reactNative.NativeModules&&_reactNative.NativeModules.
 
 
 
+
+
+
+
 CardStack=function(_Component){_inherits(CardStack,_Component);function CardStack(){var _ref;var _temp,_this,_ret;_classCallCheck(this,CardStack);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=CardStack.__proto__||Object.getPrototypeOf(CardStack)).call.apply(_ref,[this].concat(args))),_this),_this.
 
 
@@ -5883,6 +5906,11 @@ return transitionSpec;
 
 
 
+
+
+
+
+
 _getChildNavigation=function(
 scene)
 {
@@ -5894,7 +5922,7 @@ state:scene.route}));
 
 }
 return navigation;
-},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(CardStack,[{key:'componentWillMount',value:function componentWillMount(){this._render=this._render.bind(this);this._renderScene=this._renderScene.bind(this);}},{key:'render',value:function render(){return _react2.default.createElement(_Transitioner2.default,{configureTransition:this._configureTransition,navigation:this.props.navigation,render:this._render,style:this.props.style,onTransitionStart:this.props.onTransitionStart,onTransitionEnd:this.props.onTransitionEnd});}},{key:'_renderHeader',value:function _renderHeader(transitionProps,headerMode){var _this2=this;var headerConfig=this.props.router.getScreenConfig(transitionProps.navigation,'header')||{};return _react2.default.createElement(this.props.headerComponent,_extends({},transitionProps,{router:this.props.router,style:headerConfig.style,mode:headerMode,onNavigateBack:function onNavigateBack(){return _this2.props.navigation.goBack(null);},renderLeftComponent:function renderLeftComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};return header.left;},renderRightComponent:function renderRightComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};return header.right;},renderTitleComponent:function renderTitleComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};if(typeof header.title==='string'){return undefined;}return header.title;}}));}},{key:'_render',value:function _render(props){var _this3=this;var floatingHeader=null;var headerMode=this._getHeaderMode();if(headerMode==='float'){floatingHeader=this._renderHeader(props,headerMode);}return _react2.default.createElement(_reactNative.View,{style:styles.container},_react2.default.createElement(_reactNative.View,{style:styles.scenes},props.scenes.map(function(scene){return _this3._renderScene(_extends({},props,{scene:scene,navigation:_this3._getChildNavigation(scene)}));})),floatingHeader);}},{key:'_getHeaderMode',value:function _getHeaderMode(){if(this.props.headerMode){return this.props.headerMode;}if(_reactNative.Platform.OS==='android'||this.props.mode==='modal'){return'screen';}return'float';}},{key:'_getTransitionConfig',value:function _getTransitionConfig(transitionProps,prevTransitionProps){var defaultConfig=_TransitionConfigs2.default.defaultTransitionConfig(transitionProps,prevTransitionProps,this.props.mode==='modal');if(this.props.transitionConfig){return _extends({},defaultConfig,this.props.transitionConfig());}return defaultConfig;}},{key:'_renderInnerCard',value:function _renderInnerCard(SceneComponent,props){var header=this.props.router.getScreenConfig(props.navigation,'header');var headerMode=this._getHeaderMode();if(headerMode==='screen'){var isHeaderHidden=header&&header.visible===false;var maybeHeader=isHeaderHidden?null:this._renderHeader(props,headerMode);return _react2.default.createElement(_reactNative.View,{style:styles.container},_react2.default.createElement(_reactNative.View,{style:{flex:1}},_react2.default.createElement(_SceneView2.default,{screenProps:this.props.screenProps,navigation:props.navigation,component:SceneComponent})),maybeHeader);}return _react2.default.createElement(_SceneView2.default,{screenProps:this.props.screenProps,navigation:props.navigation,component:SceneComponent});}},{key:'_renderScene',value:function _renderScene(
+},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(CardStack,[{key:'componentWillMount',value:function componentWillMount(){this._render=this._render.bind(this);this._renderScene=this._renderScene.bind(this);}},{key:'render',value:function render(){return _react2.default.createElement(_Transitioner2.default,{configureTransition:this._configureTransition,navigation:this.props.navigation,render:this._render,style:this.props.style,onTransitionStart:this.props.onTransitionStart,onTransitionEnd:this.props.onTransitionEnd});}},{key:'_renderHeader',value:function _renderHeader(transitionProps,headerMode){var _this2=this;var headerConfig=this.props.router.getScreenConfig(transitionProps.navigation,'header')||{};return _react2.default.createElement(this.props.headerComponent,_extends({},transitionProps,{router:this.props.router,style:headerConfig.style,mode:headerMode,onNavigateBack:function onNavigateBack(){return _this2.props.navigation.goBack(null);},renderLeftComponent:function renderLeftComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};return header.left;},renderRightComponent:function renderRightComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};return header.right;},renderTitleComponent:function renderTitleComponent(props){var header=_this2.props.router.getScreenConfig(props.navigation,'header')||{};if(typeof header.title==='string'){return undefined;}return header.title;}}));}},{key:'_render',value:function _render(props){var _this3=this;var floatingHeader=null;var headerMode=this._getHeaderMode();if(headerMode==='float'){floatingHeader=this._renderHeader(props,headerMode);}return _react2.default.createElement(_reactNative.View,{style:styles.container},_react2.default.createElement(_reactNative.View,{style:styles.scenes},props.scenes.map(function(scene){return _this3._renderScene(_extends({},props,{scene:scene,navigation:_this3._getChildNavigation(scene)}));})),floatingHeader);}},{key:'_getHeaderMode',value:function _getHeaderMode(){if(this.props.headerMode){return this.props.headerMode;}if(_reactNative.Platform.OS==='android'||this.props.mode==='modal'){return'screen';}return'float';}},{key:'_getTransitionConfig',value:function _getTransitionConfig(transitionProps,prevTransitionProps){var isModal=this.props.mode==='modal';var defaultConfig=_TransitionConfigs2.default.defaultTransitionConfig(transitionProps,prevTransitionProps,isModal);if(this.props.transitionConfig){return _extends({},defaultConfig,this.props.transitionConfig(transitionProps,prevTransitionProps,isModal));}return defaultConfig;}},{key:'_renderInnerCard',value:function _renderInnerCard(SceneComponent,props){var header=this.props.router.getScreenConfig(props.navigation,'header');var headerMode=this._getHeaderMode();if(headerMode==='screen'){var isHeaderHidden=header&&header.visible===false;var maybeHeader=isHeaderHidden?null:this._renderHeader(props,headerMode);return _react2.default.createElement(_reactNative.View,{style:styles.container},_react2.default.createElement(_reactNative.View,{style:{flex:1}},_react2.default.createElement(_SceneView2.default,{screenProps:this.props.screenProps,navigation:props.navigation,component:SceneComponent})),maybeHeader);}return _react2.default.createElement(_SceneView2.default,{screenProps:this.props.screenProps,navigation:props.navigation,component:SceneComponent});}},{key:'_renderScene',value:function _renderScene(
 
 props){var _this4=this;
 var isModal=this.props.mode==='modal';var _getTransitionConfig2=
@@ -6478,10 +6506,8 @@ var _reactNative=__webpack_require__(1);
 
 
 
+
 var _TouchableItem=__webpack_require__("./node_modules/react-navigation/lib/views/TouchableItem.js");var _TouchableItem2=_interopRequireDefault(_TouchableItem);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
-
-
-
 
 
 
@@ -6574,7 +6600,8 @@ inactiveBackgroundColor:'transparent'};
 
 var styles=_reactNative.StyleSheet.create({
 container:{
-marginVertical:4},
+marginTop:_reactNative.Platform.OS==='ios'?20:0,
+paddingVertical:4},
 
 item:{
 flexDirection:'row',
@@ -6754,8 +6781,7 @@ router:this.props.router}))));
 var styles=_reactNative.StyleSheet.create({
 container:{
 flex:1,
-backgroundColor:'#fff',
-paddingTop:_reactNative.Platform.OS==='ios'?20:0}});
+backgroundColor:'#fff'}});
 
 /***/ }),
 
@@ -6766,7 +6792,7 @@ paddingTop:_reactNative.Platform.OS==='ios'?20:0}});
 Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
 
 var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-var _reactNativeDrawerLayout=__webpack_require__("./node_modules/react-native-drawer-layout/dist/DrawerLayout.js");var _reactNativeDrawerLayout2=_interopRequireDefault(_reactNativeDrawerLayout);
+var _reactNativeDrawerLayoutPolyfill=__webpack_require__("./node_modules/react-native-drawer-layout-polyfill/dist/index.js");var _reactNativeDrawerLayoutPolyfill2=_interopRequireDefault(_reactNativeDrawerLayoutPolyfill);
 
 var _addNavigationHelpers=__webpack_require__("./node_modules/react-navigation/lib/addNavigationHelpers.js");var _addNavigationHelpers2=_interopRequireDefault(_addNavigationHelpers);
 var _DrawerNavigatorItems=__webpack_require__("./node_modules/react-navigation/lib/views/Drawer/DrawerNavigatorItems.js");var _DrawerNavigatorItems2=_interopRequireDefault(_DrawerNavigatorItems);
@@ -6880,7 +6906,7 @@ style:_this.props.style}));},_temp),_possibleConstructorReturn(_this,_ret);}_cre
 {var _this2=this;
 var DrawerScreen=this.props.router.getComponentForRouteName('DrawerClose');
 return(
-_react2.default.createElement(_reactNativeDrawerLayout2.default,{
+_react2.default.createElement(_reactNativeDrawerLayoutPolyfill2.default,{
 ref:function ref(c){return _this2._drawer=c;},
 drawerWidth:this.props.drawerWidth,
 onDrawerOpen:this._handleDrawerOpen,
@@ -6888,7 +6914,7 @@ onDrawerClose:this._handleDrawerClose,
 renderNavigationView:this._renderNavigationView,
 drawerPosition:
 this.props.drawerPosition==='right'?
-_reactNativeDrawerLayout2.default.positions.Right:_reactNativeDrawerLayout2.default.positions.Left},
+_reactNativeDrawerLayoutPolyfill2.default.positions.Right:_reactNativeDrawerLayoutPolyfill2.default.positions.Left},
 
 
 _react2.default.createElement(DrawerScreen,{
@@ -6964,7 +6990,8 @@ var _addNavigationHelpers=__webpack_require__("./node_modules/react-navigation/l
 
 
 var APPBAR_HEIGHT=_reactNative.Platform.OS==='ios'?44:56;
-var STATUSBAR_HEIGHT=_reactNative.Platform.OS==='ios'?20:0;var
+var STATUSBAR_HEIGHT=_reactNative.Platform.OS==='ios'?20:0;
+var TITLE_OFFSET=_reactNative.Platform.OS==='ios'?70:40;var
 
 Header=function(_React$PureComponent){_inherits(Header,_React$PureComponent);function Header(){var _ref;var _temp,_this,_ret;_classCallCheck(this,Header);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=Header.__proto__||Object.getPrototypeOf(Header)).call.apply(_ref,[this].concat(args))),_this),_this.
 
@@ -7028,8 +7055,23 @@ _renderTitleComponent=function(props){
 var titleStyle=_this._getHeaderTitleStyle(props.navigation);
 var color=_this._getHeaderTintColor(props.navigation);
 var title=_this._getHeaderTitle(props.navigation);
+
+
+
+var onLayoutIOS=_reactNative.Platform.OS==='ios'?
+function(e){
+_this.setState({
+widths:_extends({},
+_this.state.widths,_defineProperty({},
+props.key,e.nativeEvent.layout.width))});
+
+
+}:
+undefined;
+
 return(
 _react2.default.createElement(_HeaderTitle2.default,{
+onLayout:onLayoutIOS,
 style:[color?{color:color}:null,titleStyle]},
 
 title));
@@ -7047,11 +7089,15 @@ props.navigation,{
 state:props.scenes[props.scene.index-1].route}));
 
 var backButtonTitle=_this._getBackButtonTitle(previousNavigation);
+var width=_this.state.widths[props.key]?
+(props.layout.initWidth-_this.state.widths[props.key])/2:
+undefined;
 return(
 _react2.default.createElement(_HeaderBackButton2.default,{
 onPress:props.onNavigateBack,
 tintColor:tintColor,
-title:backButtonTitle}));
+title:backButtonTitle,
+width:width}));
 
 
 },_this.
@@ -7068,9 +7114,20 @@ _HeaderStyleInterpolator2.default.forLeft);
 
 }},{key:'_renderTitle',value:function _renderTitle(
 
-props){
-return this._renderSubView(
-props,
+props,options){
+var style={};
+
+if(_reactNative.Platform.OS==='android'){
+if(!options.hasLeftComponent){
+style.left=0;
+}
+if(!options.hasRightComponent){
+style.right=0;
+}
+}
+
+return this._renderSubView(_extends({},
+props,{style:style}),
 'title',
 this.props.renderTitleComponent,
 this._renderTitleComponent,
@@ -7094,7 +7151,7 @@ name,
 renderer,
 defaultRenderer,
 styleInterpolator)
-{var _this2=this;var
+{var
 
 scene=
 
@@ -7123,36 +7180,20 @@ if(subView===undefined){
 subView=defaultRenderer(subViewProps);
 }
 
+if(subView===null){
+return null;
+}
+
 var pointerEvents=offset!==0||isStale?'none':'box-none';
-
-
-
-var onLayoutIOS=_reactNative.Platform.OS==='ios'&&name==='title'?
-function(e){
-_this2.setState({
-widths:_extends({},
-_this2.state.widths,_defineProperty({},
-key,e.nativeEvent.layout.width))});
-
-
-}:
-undefined;
-
-var titleWidth=name==='left'||name==='right'?
-this.state.widths[key]:
-undefined;
 
 return(
 _react2.default.createElement(_reactNative.Animated.View,{
 pointerEvents:pointerEvents,
-onLayout:onLayoutIOS,
 key:name+'_'+key,
 style:[
-titleWidth&&{
-width:(props.layout.initWidth-titleWidth)/2},
-
 styles.item,
 styles[name],
+props.style,
 styleInterpolator(props)]},
 
 
@@ -7164,31 +7205,34 @@ subView));
 props){
 var left=this._renderLeft(props);
 var right=this._renderRight(props);
-var title=this._renderTitle(props);
+var title=this._renderTitle(props,{
+hasLeftComponent:!!left,
+hasRightComponent:!!right});
+
 
 return(
 _react2.default.createElement(_reactNative.View,{
 style:[_reactNative.StyleSheet.absoluteFill,styles.header],
 key:'scene_'+props.scene.key},
 
-left,
 title,
+left,
 right));
 
 
 }},{key:'render',value:function render()
 
-{var _this3=this;
+{var _this2=this;
 var appBar=void 0;
 
 if(this.props.mode==='float'){
 var scenesProps=this.props.scenes.
 map(function(scene,index){return _extends({},
-_PropTypes2.default.extractSceneRendererProps(_this3.props),{
+_PropTypes2.default.extractSceneRendererProps(_this2.props),{
 scene:scene,
 index:index,
 navigation:(0,_addNavigationHelpers2.default)(_extends({},
-_this3.props.navigation,{
+_this2.props.navigation,{
 state:scene.route}))});});
 
 
@@ -7196,7 +7240,7 @@ state:scene.route}))});});
 appBar=scenesProps.map(this._renderHeader,this);
 }else{
 appBar=this._renderHeader(_extends({},
-this.props,{
+_PropTypes2.default.extractSceneRendererProps(this.props),{
 position:new _reactNative.Animated.Value(this.props.scene.index),
 progress:new _reactNative.Animated.Value(0)}));
 
@@ -7236,19 +7280,30 @@ flexDirection:'row'},
 
 item:{
 justifyContent:'center',
+alignItems:'center',
 backgroundColor:'transparent'},
 
-title:_reactNative.Platform.OS==='android'?
-{
-flex:1,
-alignItems:'flex-start'}:
+title:{
+bottom:0,
+left:TITLE_OFFSET,
+right:TITLE_OFFSET,
+top:0,
+position:'absolute',
+alignItems:_reactNative.Platform.OS==='android'?
+'flex-start':
+'center'},
 
-{},
 left:{
-alignItems:'flex-start'},
+left:0,
+bottom:0,
+top:0,
+position:'absolute'},
 
 right:{
-alignItems:'flex-end'}});exports.default=
+right:0,
+bottom:0,
+top:0,
+position:'absolute'}});exports.default=
 
 
 
@@ -7308,16 +7363,8 @@ HeaderBackButton=function(_React$PureComponent){_inherits(HeaderBackButton,_Reac
 
 
 
+
 state={},_this.
-
-_onContainerLayout=function(e){
-if(_reactNative.Platform.OS!=='ios'){
-return;
-}
-_this.setState({
-containerWidth:e.nativeEvent.layout.width});
-
-},_this.
 
 _onTextLayout=function(e){
 if(_this.state.initialTextWidth){
@@ -7329,10 +7376,10 @@ initialTextWidth:e.nativeEvent.layout.x+e.nativeEvent.layout.width});
 },_temp),_possibleConstructorReturn(_this,_ret);}_createClass(HeaderBackButton,[{key:'render',value:function render()
 
 {var _props=
-this.props,onPress=_props.onPress,title=_props.title,tintColor=_props.tintColor,truncatedTitle=_props.truncatedTitle;
+this.props,onPress=_props.onPress,width=_props.width,title=_props.title,tintColor=_props.tintColor,truncatedTitle=_props.truncatedTitle;
 
-var renderTruncated=this.state.containerWidth&&this.state.initialTextWidth?
-this.state.containerWidth<this.state.initialTextWidth:
+var renderTruncated=this.state.initialTextWidth&&width?
+this.state.initialTextWidth>width:
 false;
 
 return(
@@ -7342,10 +7389,7 @@ onPress:onPress,
 style:styles.container,
 borderless:true},
 
-_react2.default.createElement(_reactNative.View,{
-onLayout:this._onContainerLayout,
-style:styles.container},
-
+_react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.Image,{
 style:[
 styles.icon,
@@ -7356,7 +7400,6 @@ source:__webpack_require__("./node_modules/react-navigation/lib/views/assets/bac
 
 _reactNative.Platform.OS==='ios'&&title&&
 _react2.default.createElement(_reactNative.Text,{
-ellipsizeMode:'middle',
 onLayout:this._onTextLayout,
 style:[styles.title,{color:tintColor}],
 numberOfLines:1},
@@ -7367,7 +7410,7 @@ renderTruncated?truncatedTitle:title))));
 
 
 
-}}]);return HeaderBackButton;}(_react2.default.PureComponent);HeaderBackButton.propTypes={onPress:_react.PropTypes.func.isRequired,title:_react.PropTypes.string,tintColor:_react.PropTypes.string,truncatedTitle:_react.PropTypes.string};HeaderBackButton.defaultProps={tintColor:_reactNative.Platform.select({ios:'#037aff'}),truncatedTitle:'Back'};
+}}]);return HeaderBackButton;}(_react2.default.PureComponent);HeaderBackButton.propTypes={onPress:_react.PropTypes.func.isRequired,title:_react.PropTypes.string,tintColor:_react.PropTypes.string,truncatedTitle:_react.PropTypes.string,width:_react.PropTypes.number};HeaderBackButton.defaultProps={tintColor:_reactNative.Platform.select({ios:'#037aff'}),truncatedTitle:'Back'};
 
 
 var styles=_reactNative.StyleSheet.create({
@@ -7662,7 +7705,7 @@ return Container;
 "use strict";
 Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
 
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
+var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
 
 
@@ -7676,8 +7719,6 @@ var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);fun
 
 
 
-
-var screenPropsWarningShown=false;var
 
 SceneView=function(_PureComponent){_inherits(SceneView,_PureComponent);function SceneView(){_classCallCheck(this,SceneView);return _possibleConstructorReturn(this,(SceneView.__proto__||Object.getPrototypeOf(SceneView)).apply(this,arguments));}_createClass(SceneView,[{key:'getChildContext',value:function getChildContext()
 
@@ -7690,17 +7731,6 @@ SceneView=function(_PureComponent){_inherits(SceneView,_PureComponent);function 
 return{
 navigation:this.props.navigation};
 
-}},{key:'componentWillMount',value:function componentWillMount()
-
-{
-if(this.props.screenProps!==undefined&&!screenPropsWarningShown){
-console.warn(
-'Behaviour of screenProps has changed from initial beta. '+
-'Components will now receive it as `this.props.screenProps` instead.\n'+
-'This warning will be removed in future.');
-
-screenPropsWarningShown=true;
-}
 }},{key:'render',value:function render()
 
 {var _props=
@@ -8019,6 +8049,9 @@ label));
 
 
 }
+if(typeof label==='function'){
+return label(scene);
+}
 
 return label;
 },_this.
@@ -8297,6 +8330,9 @@ _react2.default.createElement(_reactNative.Animated.Text,{style:[styles.label,{c
 upperCaseLabel?label.toUpperCase():label));
 
 
+}
+if(typeof label==='function'){
+return label(scene);
 }
 
 return label;
@@ -9300,85 +9336,9 @@ get withNavigation(){return __webpack_require__("./node_modules/react-navigation
 /***/ "./src/navigators/DrawerNavigator.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};
+Object.defineProperty(exports,"__esModule",{value:true});
 
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-var _reactNative=__webpack_require__(1);
-
-
-
-
-var _DrawerScreen=__webpack_require__("./src/views/Drawer/DrawerScreen.js");var _DrawerScreen2=_interopRequireDefault(_DrawerScreen);
-var _DrawerView=__webpack_require__("./src/views/Drawer/DrawerView.js");var _DrawerView2=_interopRequireDefault(_DrawerView);
-
-var _reactNavigation=__webpack_require__("./node_modules/react-navigation/lib/react-navigation.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _objectWithoutProperties(obj,keys){var target={};for(var i in obj){if(keys.indexOf(i)>=0)continue;if(!Object.prototype.hasOwnProperty.call(obj,i))continue;target[i]=obj[i];}return target;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var DefaultDrawerConfig={
-
-
-
-
-
-drawerWidth:400,
-contentComponent:_DrawerView2.default.Items,
-drawerPosition:'left'};
-
-
-var DrawerNavigator=function DrawerNavigator(
-routeConfigs,
-config)
-{
-var mergedConfig=_extends({},DefaultDrawerConfig,config);var
-
-containerConfig=
-
-
-
-
-
-mergedConfig.containerConfig,drawerWidth=mergedConfig.drawerWidth,contentComponent=mergedConfig.contentComponent,contentOptions=mergedConfig.contentOptions,drawerPosition=mergedConfig.drawerPosition,tabsConfig=_objectWithoutProperties(mergedConfig,['containerConfig','drawerWidth','contentComponent','contentOptions','drawerPosition']);
-var contentRouter=(0,_reactNavigation.TabRouter)(routeConfigs,tabsConfig);
-var drawerRouter=(0,_reactNavigation.TabRouter)({
-DrawerClose:{
-screen:(0,_reactNavigation.createNavigator)(contentRouter)(function(props){return(
-_react2.default.createElement(_DrawerScreen2.default,props));})},
-
-
-DrawerOpen:{
-screen:function screen(){return null;}}},
-
-{
-initialRouteName:'DrawerClose'});
-
-return(0,_reactNavigation.createNavigationContainer)((0,_reactNavigation.createNavigator)(drawerRouter)(function(props){return(
-_react2.default.createElement(_DrawerView2.default,_extends({},
-props,{
-drawerWidth:drawerWidth,
-contentComponent:contentComponent,
-contentOptions:contentOptions,
-drawerPosition:drawerPosition})));}),
-
-containerConfig);
-};exports.default=
-
-DrawerNavigator;
+var _reactNavigation=__webpack_require__("./node_modules/react-navigation/lib/react-navigation.js");exports.default=_reactNavigation.DrawerNavigator;
 
 /***/ }),
 
@@ -9532,58 +9492,6 @@ fontWeight:'bold'}});exports.default=
 
 
 DrawerNavigatorItems;
-
-/***/ }),
-
-/***/ "./src/views/Drawer/DrawerScreen.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
-
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-
-var _SceneView=__webpack_require__("./node_modules/react-navigation/lib/views/SceneView.js");var _SceneView2=_interopRequireDefault(_SceneView);
-
-var _withCachedChildNavigation=__webpack_require__("./node_modules/react-navigation/lib/withCachedChildNavigation.js");var _withCachedChildNavigation2=_interopRequireDefault(_withCachedChildNavigation);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DrawerScreen=function(_PureComponent){_inherits(DrawerScreen,_PureComponent);function DrawerScreen(){_classCallCheck(this,DrawerScreen);return _possibleConstructorReturn(this,(DrawerScreen.__proto__||Object.getPrototypeOf(DrawerScreen)).apply(this,arguments));}_createClass(DrawerScreen,[{key:'render',value:function render()
-
-
-{var _props=
-this.props,router=_props.router,navigation=_props.navigation,childNavigationProps=_props.childNavigationProps;var _navigation$state=
-navigation.state,routes=_navigation$state.routes,index=_navigation$state.index;
-var childNavigation=childNavigationProps[routes[index].key];
-var Content=router.getComponentForRouteName(routes[index].routeName);
-return(
-_react2.default.createElement(_SceneView2.default,{
-screenProps:this.props.screenProps,
-component:Content,
-navigation:childNavigation}));
-
-
-}}]);return DrawerScreen;}(_react.PureComponent);exports.default=
-
-
-(0,_withCachedChildNavigation2.default)(DrawerScreen);
 
 /***/ }),
 

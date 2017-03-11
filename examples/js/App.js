@@ -46,11 +46,11 @@ const ExampleRoutes = {
     description: Platform.OS === 'ios' ? 'Stack navigation with modals' : 'Dynamically showing and hiding the header',
     screen: ModalStack,
   },
-  // StacksInTabs: {
-  //   name: 'Stacks in Tabs',
-  //   description: 'Nested stack navigation in tabs',
-  //   screen: StacksInTabs,
-  // },
+  StacksInTabs: {
+    name: 'Stacks in Tabs',
+    description: 'Nested stack navigation in tabs',
+    screen: StacksInTabs,
+  },
   LinkStack: {
     name: 'Link in Stack',
     description: 'Deep linking into a route in stack',

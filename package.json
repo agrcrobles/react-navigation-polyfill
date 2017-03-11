@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "react-navigation-web",
   "main": "dist/index.js",
   "scripts": {
@@ -11,8 +11,7 @@
   "author": "agrcrobles@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "react-native-drawer-layout": "^1.1.4",
-    "react-navigation": "^1.0.0-beta.6"
+    "react-navigation": "^1.0.0-beta.7"
   },
   "files": [
     "dist",
