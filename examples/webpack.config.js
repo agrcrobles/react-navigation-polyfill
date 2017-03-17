@@ -24,8 +24,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules(?!\/react-native-vector-icons)/,
-        loader: 'babel-loader',
-        query: { cacheDirectory: true }
+        loader: 'babel-loader?+cacheDirectory'
       },
       {
         test: /\.(gif|jpe?g|png|svg)$/,

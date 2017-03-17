@@ -22,6 +22,13 @@ if (module.hot) {
   module.hot.accept();
   const nextReducer = require('./reducers').default;
   store.replaceReducer(nextReducer);
+
+  const renderApp = () => <Provider store={store}>
+    <Navigation />
+  </Provider>;
+  
+  AppRegistry.registerComponent('ReactNavigationWebExamples', () => renderApp);
+
 }
 
 AppRegistry.runApplication('ReactNavigationWebExamples', {

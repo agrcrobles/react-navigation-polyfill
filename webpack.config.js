@@ -18,10 +18,7 @@ module.exports = {
         exclude: /node_modules(?!\/react-native-tab-view)/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-            },
+            loader: 'babel-loader?+cacheDirectory'
           },
         ],
       },

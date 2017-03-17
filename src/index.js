@@ -24,7 +24,7 @@ module.exports = {
   // Views
   get Transitioner() { return require('react-navigation/lib/views/Transitioner').default; },
   get CardStack() { return require('react-navigation/lib/views/CardStack').default; },
-  get DrawerView() { return require('./views/Drawer/DrawerView').default; },
+  get DrawerView() { return require('react-navigation/lib/views/Drawer/DrawerView').default; },
   get TabView() { return require('react-navigation/lib/views/TabView/TabView').default; },
 
   // HOCs

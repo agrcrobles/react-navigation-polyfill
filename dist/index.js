@@ -69,7 +69,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "90f163aa7c4a0cf8b2a6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c7ff2d05f7d3d08affb0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -905,7 +905,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/node-libs-browser/node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -1047,193 +1047,6 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/node-libs-browser/node_modules/process/browser.js":
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
 
 
 /***/ }),
@@ -1667,6 +1480,193 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
 
 
 /***/ }),
@@ -9325,7 +9325,7 @@ get TabRouter(){return __webpack_require__("./node_modules/react-navigation/lib/
 
 get Transitioner(){return __webpack_require__("./node_modules/react-navigation/lib/views/Transitioner.js").default;},
 get CardStack(){return __webpack_require__("./node_modules/react-navigation/lib/views/CardStack.js").default;},
-get DrawerView(){return __webpack_require__("./src/views/Drawer/DrawerView.js").default;},
+get DrawerView(){return __webpack_require__("./node_modules/react-navigation/lib/views/Drawer/DrawerView.js").default;},
 get TabView(){return __webpack_require__("./node_modules/react-navigation/lib/views/TabView/TabView.js").default;},
 
 
@@ -9357,387 +9357,6 @@ var _reactNavigation=__webpack_require__("./node_modules/react-navigation/lib/re
 Object.defineProperty(exports,"__esModule",{value:true});
 
 var _reactNavigation=__webpack_require__("./node_modules/react-navigation/lib/react-navigation.js");exports.default=_reactNavigation.TabNavigator;
-
-/***/ }),
-
-/***/ "./src/views/Drawer/DrawerNavigatorItems.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-Object.defineProperty(exports,"__esModule",{value:true});
-
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-var _reactNative=__webpack_require__(1);
-
-
-
-
-
-var _TouchableItem=__webpack_require__("./node_modules/react-navigation/lib/views/TouchableItem.js");var _TouchableItem2=_interopRequireDefault(_TouchableItem);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var DrawerNavigatorItems=function DrawerNavigatorItems(_ref){var
-navigation=_ref.navigation,
-activeTintColor=_ref.activeTintColor,
-activeBackgroundColor=_ref.activeBackgroundColor,
-inactiveTintColor=_ref.inactiveTintColor,
-inactiveBackgroundColor=_ref.inactiveBackgroundColor,
-getLabel=_ref.getLabel,
-renderIcon=_ref.renderIcon,
-style=_ref.style;return(
-
-_react2.default.createElement(_reactNative.View,{style:[styles.container,style]},
-navigation.state.routes.map(function(route,index){
-var focused=navigation.state.index===index;
-var color=focused?activeTintColor:inactiveTintColor;
-var backgroundColor=focused?activeBackgroundColor:inactiveBackgroundColor;
-var scene={route:route,index:index,focused:focused,tintColor:color};
-var icon=renderIcon(scene);
-var label=getLabel(scene);
-return(
-_react2.default.createElement(_TouchableItem2.default,{
-key:route.key,
-onPress:function onPress(){
-navigation.navigate('DrawerClose');
-navigation.navigate(route.routeName);
-},
-delayPressIn:0},
-
-_react2.default.createElement(_reactNative.View,{style:[styles.item,{backgroundColor:backgroundColor}]},
-icon?
-_react2.default.createElement(_reactNative.View,{style:[styles.icon,focused?null:styles.inactiveIcon]},
-icon):
-
-null,
-typeof label==='string'?
-
-_react2.default.createElement(_reactNative.Text,{style:[styles.label,{color:color}]},
-label):
-
-
-label)));
-
-
-
-
-})));};
-
-
-
-DrawerNavigatorItems.propTypes={
-navigation:_react.PropTypes.object.isRequired,
-activeTintColor:_react.PropTypes.string,
-activeBackgroundColor:_react.PropTypes.string,
-inactiveTintColor:_react.PropTypes.string,
-inactiveBackgroundColor:_react.PropTypes.string,
-style:_reactNative.View.propTypes.style};
-
-
-
-DrawerNavigatorItems.defaultProps={
-activeTintColor:'#2196f3',
-activeBackgroundColor:'rgba(0, 0, 0, .04)',
-inactiveTintColor:'rgba(0, 0, 0, .87)',
-inactiveBackgroundColor:'transparent'};
-
-
-var styles=_reactNative.StyleSheet.create({
-container:{
-marginVertical:4},
-
-item:{
-flexDirection:'row',
-alignItems:'center'},
-
-icon:{
-marginHorizontal:16,
-width:24,
-alignItems:'center'},
-
-inactiveIcon:{
-
-
-
-
-opacity:0.62},
-
-label:{
-margin:16,
-fontWeight:'bold'}});exports.default=
-
-
-
-DrawerNavigatorItems;
-
-/***/ }),
-
-/***/ "./src/views/Drawer/DrawerSidebar.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
-
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-var _reactNative=__webpack_require__(1);
-
-
-
-
-
-var _withCachedChildNavigation=__webpack_require__("./node_modules/react-navigation/lib/withCachedChildNavigation.js");var _withCachedChildNavigation2=_interopRequireDefault(_withCachedChildNavigation);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DrawerSidebar=function(_PureComponent){_inherits(DrawerSidebar,_PureComponent);function DrawerSidebar(){var _ref;var _temp,_this,_ret;_classCallCheck(this,DrawerSidebar);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=DrawerSidebar.__proto__||Object.getPrototypeOf(DrawerSidebar)).call.apply(_ref,[this].concat(args))),_this),_this.
-
-
-_getScreenConfig=function(routeKey,configName){
-var DrawerScreen=_this.props.router.getComponentForRouteName('DrawerClose');
-return DrawerScreen.router.getScreenConfig(
-_this.props.childNavigationProps[routeKey],
-configName);
-
-},_this.
-
-_getLabel=function(_ref2){var focused=_ref2.focused,tintColor=_ref2.tintColor,route=_ref2.route;
-var drawer=_this._getScreenConfig(route.key,'drawer');
-if(drawer&&drawer.label){
-return typeof drawer.label==='function'?
-drawer.label({tintColor:tintColor,focused:focused}):
-drawer.label;
-}
-
-var title=_this._getScreenConfig(route.key,'title');
-if(typeof title==='string'){
-return title;
-}
-
-return route.routeName;
-},_this.
-
-_renderIcon=function(_ref3){var focused=_ref3.focused,tintColor=_ref3.tintColor,route=_ref3.route;
-var drawer=_this._getScreenConfig(route.key,'drawer');
-if(drawer&&drawer.icon){
-return typeof drawer.icon==='function'?
-drawer.icon({tintColor:tintColor,focused:focused}):
-drawer.icon;
-}
-return null;
-},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(DrawerSidebar,[{key:'render',value:function render()
-
-{
-var ContentComponent=this.props.contentComponent;
-return(
-_react2.default.createElement(_reactNative.View,{style:[styles.container,this.props.style]},
-_react2.default.createElement(ContentComponent,_extends({},
-this.props.contentOptions,{
-navigation:this.props.navigation,
-getLabel:this._getLabel,
-renderIcon:this._renderIcon}))));
-
-
-
-}}]);return DrawerSidebar;}(_react.PureComponent);exports.default=
-
-
-(0,_withCachedChildNavigation2.default)(DrawerSidebar);
-
-var styles=_reactNative.StyleSheet.create({
-container:{
-flex:1,
-backgroundColor:'#fff',
-paddingTop:_reactNative.Platform.OS==='ios'?20:0}});
-
-/***/ }),
-
-/***/ "./src/views/Drawer/DrawerView.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
-
-var _react=__webpack_require__(0);var _react2=_interopRequireDefault(_react);
-var _reactNativeDrawerLayout=__webpack_require__("./node_modules/react-native-drawer-layout/dist/DrawerLayout.js");var _reactNativeDrawerLayout2=_interopRequireDefault(_reactNativeDrawerLayout);
-
-var _reactNavigation=__webpack_require__("./node_modules/react-navigation/lib/react-navigation.js");
-
-
-
-var _DrawerNavigatorItems=__webpack_require__("./src/views/Drawer/DrawerNavigatorItems.js");var _DrawerNavigatorItems2=_interopRequireDefault(_DrawerNavigatorItems);
-var _DrawerSidebar=__webpack_require__("./src/views/Drawer/DrawerSidebar.js");var _DrawerSidebar2=_interopRequireDefault(_DrawerSidebar);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DrawerView=function(_PureComponent){_inherits(DrawerView,_PureComponent);function DrawerView(){var _ref;var _temp,_this,_ret;_classCallCheck(this,DrawerView);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=DrawerView.__proto__||Object.getPrototypeOf(DrawerView)).call.apply(_ref,[this].concat(args))),_this),_this.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-_handleDrawerOpen=function(){var
-navigation=_this.props.navigation;var _navigation$state=
-navigation.state,routes=_navigation$state.routes,index=_navigation$state.index;
-if(routes[index].routeName!=='DrawerOpen'){
-_this.props.navigation.navigate('DrawerOpen');
-}
-},_this.
-
-_handleDrawerClose=function(){var
-navigation=_this.props.navigation;var _navigation$state2=
-navigation.state,routes=_navigation$state2.routes,index=_navigation$state2.index;
-if(routes[index].routeName!=='DrawerClose'){
-_this.props.navigation.navigate('DrawerClose');
-}
-},_this.
-
-_updateScreenNavigation=function(
-navigation)
-{
-var navigationState=navigation.state.routes.find(function(route){return route.routeName==='DrawerClose';});
-if(_this._screenNavigationProp&&_this._screenNavigationProp.state===navigationState){
-return;
-}
-_this._screenNavigationProp=(0,_reactNavigation.addNavigationHelpers)(_extends({},
-navigation,{
-state:navigationState}));
-
-},_this.
-
-_getNavigationState=function(
-navigation)
-{
-var navigationState=navigation.state.routes.find(function(route){return route.routeName==='DrawerClose';});
-return navigationState;
-},_this.
-
-_renderNavigationView=function(){return(
-_react2.default.createElement(_DrawerSidebar2.default,{
-navigation:_this._screenNavigationProp,
-router:_this.props.router,
-contentComponent:_this.props.contentComponent,
-contentOptions:_this.props.contentOptions,
-style:_this.props.style}));},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(DrawerView,[{key:'componentWillMount',value:function componentWillMount(){this._updateScreenNavigation(this.props.navigation);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(nextProps){if(this.props.navigation.state.index!==nextProps.navigation.state.index){var _nextProps$navigation=nextProps.navigation.state,routes=_nextProps$navigation.routes,_index=_nextProps$navigation.index;if(routes[_index].routeName==='DrawerOpen'){this._drawer.openDrawer();}else{this._drawer.closeDrawer();}}this._updateScreenNavigation(nextProps.navigation);}},{key:'render',value:function render()
-
-
-
-
-
-{var _this2=this;
-var DrawerScreen=this.props.router.getComponentForRouteName('DrawerClose');
-return(
-_react2.default.createElement(_reactNativeDrawerLayout2.default,{
-ref:function ref(c){return _this2._drawer=c;},
-drawerWidth:this.props.drawerWidth,
-onDrawerOpen:this._handleDrawerOpen,
-onDrawerClose:this._handleDrawerClose,
-renderNavigationView:this._renderNavigationView,
-drawerPosition:
-this.props.drawerPosition==='right'?
-_reactNativeDrawerLayout2.default.positions.Right:_reactNativeDrawerLayout2.default.positions.Left},
-
-
-_react2.default.createElement(DrawerScreen,{
-screenProps:this.props.screenProps,
-navigation:this._screenNavigationProp})));
-
-
-
-}}]);return DrawerView;}(_react.PureComponent);DrawerView.Items=_DrawerNavigatorItems2.default;exports.default=DrawerView;
 
 /***/ }),
 

@@ -13,7 +13,7 @@
     "react": "15.4.2",
     "react-native-vector-icons": "^4.0.0",
     "react-native-web": "0.0.77",
-    "react-navigation-web": "git+https://github.com/agrcrobles/react-navigation-web.git",
+    "react-navigation-web": "file:../",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0"
   },
@@ -23,6 +23,7 @@
     "babel-loader": "^6.3.0",
     "babel-preset-react-native": "^1.9.1",
     "file-loader": "^0.10.0",
+    "flow-bin": "^0.41.0",
     "json-loader": "^0.5.4",
     "react-hot-loader": "^3.0.0-beta.6",
     "url-loader": "^0.5.7",

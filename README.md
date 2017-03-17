@@ -1,6 +1,6 @@
 # Built in views for web
 
-> react-navigation wrapper for web version 1.0.0-beta.7 could be unnecesary and deprecated.
+> react-navigation for web version 1.0.0-beta.8 could be unnecesary and deprecated in the near future.
 
 ## Overview
 
@@ -24,7 +24,7 @@ npm i --save https://github.com/agrcrobles/react-navigation-web.git
 
 #### Known issues
 
- - Since it is experimental hasn't been published to npm yet.
+ - Since it is experimental won't been published to npm.
 
 ## Navigators
 
@@ -42,29 +42,21 @@ npm i --save https://github.com/agrcrobles/react-navigation-web.git
 
 ## More info
 
-#### Transitioner
-
-> Supported
-
-#### Nested navigators
-
-> Supported
-
-#### withNavigation
-
-> Supported
-
-#### Flow
-
-> Building without syntax.
-
 #### Create React App
 
 > [Supported](https://github.com/react-community/react-navigation/issues/622)
 
+#### Working example
+
+ - react + redux hot reloaded
+
+#### Flow
+
+> Working example with some built in flow modules.
+
 ## About
 
-This module is meant somehow as a solution following the [discussion](https://github.com/react-community/react-navigation/issues/174) in react-navigation.
+This module is meant somehow as a solution following the [discussion](https://github.com/react-community/react-navigation/issues/174) in react-navigation and because so far it is way to make it work.
 
 ## License
 

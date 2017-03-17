@@ -1,5 +1,5 @@
-/* @flow */
+// @flow
 
-import { StackNavigator } from 'react-navigation/lib/react-navigation.js'
+import { StackNavigator } from 'react-navigation/lib/react-navigation.js';
 
 export default StackNavigator;
