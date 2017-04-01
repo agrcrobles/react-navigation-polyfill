@@ -1,8 +1,10 @@
-# Built in views for web
+# Built in views in web
 
-> react-navigation for web version 1.0.0-beta.8 could be unnecesary and deprecated in the near future.
+- It is a polyfill for react-navigation to make web be like native when it comes to navigations.
 
-## Overview
+> It could be unnecesary and deprecated in the near future when in `react-navigation` bring support to built in views for web.
+
+## Motivation
 
 It brings all behaviors from the [built-in](https://reactnavigation.org/docs/navigators/) views of [react-navigation](https://reactnavigation.org) from the native to the web.
 
@@ -15,30 +17,26 @@ Try navigation playground [on web](https://react-navigation-playground.herokuapp
  - Install dependency
 
 ```
-npm i --save https://github.com/agrcrobles/react-navigation-web.git
+npm i --save react-navigation react-navigation-polyfill
 ```
 
- - Resolve alias in webpack config as it is in the [example](https://github.com/agrcrobles/react-navigation-web/blob/master/examples/webpack.config.js)
+ - Resolve alias in webpack
 
  - Navigate!
-
-#### Known issues
-
- - Since it is experimental won't been published to npm.
 
 ## Navigators
 
 ### DrawerNavigator
 
- [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead a built in view for web is wrapping the native one.
+ [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead this polyfill is wrapping the native one.
 
 ### TabNavigator
 
- [TabNavigator](https://reactnavigation.org/docs/navigators/tab) can't be used on web, instead a built in view for web is wrapping the native one.
+ [TabNavigator](https://reactnavigation.org/docs/navigators/tab) can't be used on web, instead this polyfill is wrapping the native one.
 
 ### StackNavigator
 
-[StackNavigator](https://reactnavigation.org/docs/navigators/stack) can't be used on web, instead a built in view for web is wrapping the native one.
+[StackNavigator](https://reactnavigation.org/docs/navigators/stack) can't be used on web, instead this polyfill is wrapping the native one.
 
 ## More info
 
@@ -46,17 +44,22 @@ npm i --save https://github.com/agrcrobles/react-navigation-web.git
 
 > [Supported](https://github.com/react-community/react-navigation/issues/622)
 
-#### Working example
+#### Starter
 
- - react + redux hot reloaded
+ Use [react-native-web-boilerplate](https://github.com/agrcrobles/react-native-web-boilerplate) as a simple starter
 
-#### Flow
+#### Flow annotation
 
-> Working example with some built in flow modules.
+> Use flow anotation from react-navigation
 
 ## About
 
-This module is meant somehow as a solution following the [discussion](https://github.com/react-community/react-navigation/issues/174) in react-navigation and because so far it is way to make it work.
+This module is meant somehow as a solution to follow discussions from 
+[react-navigation](https://github.com/react-native-community/react-native-tab-view/issues/159) and [react-native-tab-view](https://github.com/react-native-community/react-native-tab-view/issues/159) and because so far it is the way to make native navigators work on web.
+
+## CONTRIBUTING
+
+PR, stars ✭ and issue reporting, welcome.
 
 ## License
 

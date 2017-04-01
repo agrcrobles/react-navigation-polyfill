@@ -1,5 +1,9 @@
 # node
 node_modules
 node-debug.log
+
 npm-debug.log
-examples/build/bundle.js
+
+# builds
+dist/index.js
+dist/index.js.map

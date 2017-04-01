@@ -18,3 +18,6 @@ Wrapped
 
 Tweaks in webpack
 
+## 0.3.1
+
+Published!

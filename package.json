@@ -1,25 +1,25 @@
 {
-  "name": "react-navigation-web",
-  "version": "0.2.1",
-  "description": "react-navigation-web",
+  "name": "react-navigation-polyfill",
+  "version": "0.3.1",
+  "description": "A polyfill for react-navigation",
   "main": "dist/index.js",
   "scripts": {
     "test": "eslint . --ignore-path .eslintignore",
     "flow": "flow .",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "rm -rf dist/index.* && npm run build"
   },
   "author": "agrcrobles@gmail.com",
   "license": "MIT",
-  "dependencies": {
-    "react-navigation": "^1.0.0-beta.7"
-  },
   "files": [
     "dist",
     "src",
     "!**/__tests__"
   ],
   "peerDependencies": {
-    "react": "*"
+    "react-navigation": "*",
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

@@ -9,7 +9,8 @@ module.exports = {
   externals: {
     react: 'react',
     'react/lib/ReactComponentWithPureRenderMixin': 'react/lib/ReactComponentWithPureRenderMixin',
-    'react-native': 'react-native'
+    'react-native': 'react-native',
+    'react-navigation': 'react-navigation'
   },
   module: {
     rules: [

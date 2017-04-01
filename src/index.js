@@ -13,9 +13,9 @@ module.exports = {
 
   // Navigators
   get createNavigator() { return require('react-navigation/lib/navigators/createNavigator').default; },
-  get StackNavigator() { return require('./navigators/StackNavigator').default; },
-  get TabNavigator() { return require('./navigators/TabNavigator').default; },
-  get DrawerNavigator() { return require('./navigators/DrawerNavigator').default; },
+  get StackNavigator() { return require('react-navigation/lib/navigators/StackNavigator').default; },
+  get TabNavigator() { return require('react-navigation/lib/navigators/TabNavigator').default; },
+  get DrawerNavigator() { return require('react-navigation/lib/navigators/DrawerNavigator').default; },
 
   // Routers
   get StackRouter() { return require('react-navigation/lib/routers/StackRouter').default; },
