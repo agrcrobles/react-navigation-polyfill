@@ -9,12 +9,21 @@
     "build": "webpack --config webpack.config.js",
     "prepublish": "rm -rf dist/index.* && npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agrcrobles/react-navigation-polyfill.git"
+  },
   "author": "agrcrobles@gmail.com",
   "license": "MIT",
   "files": [
     "dist",
     "src",
     "!**/__tests__"
+  ],
+  "keywords": [
+    "react",
+    "react-navigation",
+    "react-native-web"
   ],
   "peerDependencies": {
     "react-navigation": "*",

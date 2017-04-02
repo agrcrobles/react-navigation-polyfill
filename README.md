@@ -1,16 +1,19 @@
 # Built in views in web
 
-- It is a polyfill for react-navigation to make web be like native when it comes to navigations.
+![Build Status](https://api.travis-ci.org/agrcrobles/react-native-web-webpack-starter.svg?master)
+[![Demo on Heroku](https://img.shields.io/badge/demo-heroku-brightgreen.svg?style=flat-square)](https://react-navigation-playground.herokuapp.com/)
+[![npm version][npm-image]][npm-url]
+
+[npm-image]: https://badge.fury.io/js/react-navigation-polyfill.svg
+[npm-url]: https://www.npmjs.com/package/react-navigation-polyfill
+
+- A polyfill for react-navigation to make web feel like native when it comes to navigation.
 
 > It could be unnecesary and deprecated in the near future when in `react-navigation` bring support to built in views for web.
 
 ## Motivation
 
 It brings all behaviors from the [built-in](https://reactnavigation.org/docs/navigators/) views of [react-navigation](https://reactnavigation.org) from the native to the web.
-
-## Demo
-
-Try navigation playground [on web](https://react-navigation-playground.herokuapp.com/).
 
 ## Quick start
 
@@ -22,6 +25,15 @@ npm i --save react-navigation react-navigation-polyfill
 
  - Resolve alias in webpack
 
+```javascript
+{
+  // other webpack config
+  resolve: {
+    alias: {
+      "react-navigation": "react-navigation-polyfill"
+    }
+  }
+```
  - Navigate!
 
 ## Navigators
