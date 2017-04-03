@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-polyfill",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A polyfill for react-navigation",
   "main": "dist/index.js",
   "scripts": {

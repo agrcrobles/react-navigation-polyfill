@@ -15,6 +15,12 @@
 
 It brings all behaviors from the [built-in](https://reactnavigation.org/docs/navigators/) views of [react-navigation](https://reactnavigation.org) from the native to the web.
 
+For a thorough discussion of this project, please read my blog post about it.
+
+## Starter
+
+https://github.com/agrcrobles/react-native-web-boilerplate
+
 ## Quick start
 
  - Install dependency
@@ -30,11 +36,12 @@ npm i --save react-navigation react-navigation-polyfill
   // other webpack config
   resolve: {
     alias: {
-      "react-navigation": "react-navigation-polyfill"
+      'react-navigation': 'react-navigation-polyfill'
     }
   }
 ```
  - Navigate!
+
 
 ## Navigators
 
@@ -55,10 +62,6 @@ npm i --save react-navigation react-navigation-polyfill
 #### Create React App
 
 > [Supported](https://github.com/react-community/react-navigation/issues/622)
-
-#### Starter
-
- Use [react-native-web-boilerplate](https://github.com/agrcrobles/react-native-web-boilerplate) as a simple starter
 
 #### Flow annotation
 
