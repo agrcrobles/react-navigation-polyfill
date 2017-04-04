@@ -25,11 +25,18 @@ https://github.com/agrcrobles/react-native-web-boilerplate
 npm i --save react-navigation react-navigation-polyfill
 ```
 
-Resolve alias in webpack
+Resolve your webpack configuration
 
 ```javascript
-{
-  // other webpack config
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, '../node_modules/react-native-tab-view')
+        ]
+  	}
+  },
   resolve: {
     alias: {
       'react-navigation': 'react-navigation-polyfill'
