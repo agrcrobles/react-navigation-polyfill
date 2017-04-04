@@ -7,13 +7,11 @@
 [npm-image]: https://badge.fury.io/js/react-navigation-polyfill.svg
 [npm-url]: https://www.npmjs.com/package/react-navigation-polyfill
 
-- This is a polyfill for react-navigation to make navigators work on web.
+This is a polyfill to make [StackNavigator](https://reactnavigation.org/docs/navigators/stack), [TabNavigator](https://reactnavigation.org/docs/navigators/tab) and [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) from react-navigation work on web.
 
-> It could be unnecesary and deprecated in the near future when in `react-navigation` bring support to built in views for web.
+> It could be unnecesary and deprecated in the near future when react-navigation bring support to [built-in views](https://reactnavigation.org/docs/navigators/) for web out of the box.
 
 ## Motivation
-
-It brings all behaviors from the [built-in](https://reactnavigation.org/docs/navigators/) views of [react-navigation](https://reactnavigation.org) from the native to the web.
 
 For a thorough discussion, please read the following [blog post](https://medium.com/@locropulenton/navigating-in-all-platforms-with-react-navigation-673e9a6e963) about it.
 
@@ -38,21 +36,6 @@ Resolve alias in webpack
     }
   }
 ```
-Navigate!
-
-## Navigators
-
-### DrawerNavigator
-
- [DrawerNavigator](https://reactnavigation.org/docs/navigators/drawer) can't be used on web, instead this polyfill is wrapping the native one.
-
-### TabNavigator
-
- [TabNavigator](https://reactnavigation.org/docs/navigators/tab) can't be used on web, instead this polyfill is wrapping the native one.
-
-### StackNavigator
-
-[StackNavigator](https://reactnavigation.org/docs/navigators/stack) can't be used on web, instead this polyfill is wrapping the native one.
 
 ## More info
 
