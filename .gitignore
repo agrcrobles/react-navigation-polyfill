@@ -7,3 +7,4 @@ npm-debug.log
 # builds
 dist/index.js
 dist/index.js.map
+report.html

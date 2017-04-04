@@ -7,7 +7,7 @@
 [npm-image]: https://badge.fury.io/js/react-navigation-polyfill.svg
 [npm-url]: https://www.npmjs.com/package/react-navigation-polyfill
 
-- A polyfill for react-navigation to make web feel like native when it comes to navigation.
+- This is a polyfill for react-navigation to make navigators work on web.
 
 > It could be unnecesary and deprecated in the near future when in `react-navigation` bring support to built in views for web.
 
@@ -15,7 +15,7 @@
 
 It brings all behaviors from the [built-in](https://reactnavigation.org/docs/navigators/) views of [react-navigation](https://reactnavigation.org) from the native to the web.
 
-For a thorough discussion of this project, please read my blog post about it.
+For a thorough discussion, please read the following [blog post](https://medium.com/@locropulenton/navigating-in-all-platforms-with-react-navigation-673e9a6e963) about it.
 
 ## Starter
 
@@ -23,13 +23,11 @@ https://github.com/agrcrobles/react-native-web-boilerplate
 
 ## Quick start
 
- - Install dependency
-
 ```
 npm i --save react-navigation react-navigation-polyfill
 ```
 
- - Resolve alias in webpack
+Resolve alias in webpack
 
 ```javascript
 {
@@ -40,8 +38,7 @@ npm i --save react-navigation react-navigation-polyfill
     }
   }
 ```
- - Navigate!
-
+Navigate!
 
 ## Navigators
 
@@ -59,22 +56,14 @@ npm i --save react-navigation react-navigation-polyfill
 
 ## More info
 
-#### Create React App
+### Create React App
 
 > [Supported](https://github.com/react-community/react-navigation/issues/622)
-
-#### Flow annotation
-
-> Use flow anotation from react-navigation
 
 ## About
 
 This module is meant somehow as a solution to follow discussions from 
 [react-navigation](https://github.com/react-native-community/react-native-tab-view/issues/159) and [react-native-tab-view](https://github.com/react-native-community/react-native-tab-view/issues/159) and because so far it is the way to make native navigators work on web.
-
-## CONTRIBUTING
-
-PR, stars ✭ and issue reporting, welcome.
 
 ## License
 

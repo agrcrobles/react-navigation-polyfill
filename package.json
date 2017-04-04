@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-polyfill",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A polyfill for react-navigation",
   "main": "dist/index.js",
   "scripts": {
@@ -38,9 +38,13 @@
     "babel-preset-react-native": "^1.9.1",
     "eslint": "^3.15.0",
     "eslint-plugin-react": "^6.9.0",
-    "url-loader": "^0.5.8",
     "flow-bin": "^0.41.0",
-    "json-loader": "^0.5.4",
-    "webpack": "^2.2.1"
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.1"
+  },
+  "dependencies": {
+    "file-loader": "^0.11.1",
+    "json-loader": "^0.5.4"
   }
 }
